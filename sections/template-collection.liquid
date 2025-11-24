@@ -1,0 +1,61 @@
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 mt-12 justify-center items-center">
+  {% for product in collection.products %}
+    <div class="border border-black border-3 transition w-full hover:scale-105 hover:shadow-2xl">
+      <a href="{{ product.url }}">
+        <div class="w-full h-64 overflow-hidden">
+          <img
+            src="{{ product.featured_image | img_url: 'large' }}"
+            alt="{{ product.title }}"
+            class="w-full h-full object-cover "
+            height=""
+            width=""
+          >
+        </div>
+        <div class="bg-white py-2 px-3 pb-4 flex flex-col items-center w-full gap-1">
+          <h2 class="text-xl font-medium font-[poppins] text-center">{{ product.title }} -</h2>
+          <p class="text-center font-bold text-2xl">{{ product.price | money }}</p>
+          <button class="bg-[#cd0102] bg-no-repeat  cursor-pointer bg-cover atc btn-cartoon px-3 py-1 text-center text-white font-[bangers] outlined-text">
+            <div>Add To Cart</div>
+          </button>
+        </div>
+      </a>
+    </div>
+  {% endfor %}
+  <!-- Popup Modal -->
+  {% comment %}
+    <div
+      id="cartModal"
+      class="fixed inset-0 bg-black/60 flex justify-center items-center z-50"
+    >
+      <div class="bg-white rounded-lg p-6  w-80 shadow-xl relative">
+        <!-- Close Button -->
+        <button id="closeModal" class="absolute top-2 right-2 text-black text-xl">✕</button>
+
+        <h2 class="text-xl font-bold mb-4 text-center">Select Options</h2>
+
+        <!-- Variant Selector -->
+        <label class="block mb-2 font-semibold">Variant</label>
+        <select id="variantSelect" class="w-full p-2 border rounded mb-4">
+          <!-- Will be filled dynamically -->
+        </select>
+
+        <!-- Quantity Selector -->
+        <label class="block mb-2 font-semibold">Quantity</label>
+        <input
+          id="qtyInput"
+          type="number"
+          min="1"
+          value="1"
+          class="w-full p-2 border rounded mb-6"
+        >
+
+        <button
+          id="confirmAdd"
+          class="w-full py-2 bg-[#cd0102] text-white font-bold rounded"
+        >
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  {% endcomment %}
+</div>
