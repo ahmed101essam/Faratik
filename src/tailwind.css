@@ -1,3 +1,17 @@
+
+.contact {
+  background-image: url("ContactUsBG-mob.png");
+  background-size: cover;
+  background-position: center;
+}
+
+/* Medium screens (768px+) and up */
+@media (min-width: 768px) {
+  .contact {
+    background-image: url("ContactUsBG.png");
+  }
+}
+
 .outlined-text {
   color: white;
   text-shadow:
@@ -15,29 +29,39 @@
 }
 
 .btn-cartoon-orange {
+  box-shadow:
+    4px 4px 0 #000,
+    0 0 5px rgba(0,0,0,0.3);
   border: 3px solid #000;
   border-radius: 12px;
   padding: 0.75rem 1.5rem;
-  background-color: #ff9506; /* main button color */
+  background-color: #ff9506;
   cursor: pointer;
   font-weight: bold;
-  color: #fff;
-  overflow: visible; /* allow ::before to overflow */
+  color: #fff;  
+  letter-spacing: 2px;
+  transform: rotate(-2deg);
+  overflow: visible;
+
+  /* 🎉 Add bounce animation */
+  animation: cartoon-bounce 1.8s ease-in-out infinite;
 }
 
-.btn-cartoon-orange::before {
-  content: "";
-  position: absolute;
-  top: -10%;   /* overflow top */
-  left: -10%;  /* overflow left */
-  width: 120%; /* wider than button */
-  height: 120%; /* taller than button */
-  background-color: #ff7e06; /* shadow color */
-  border: 3px solid black;
-  border-radius: 12px;
-  z-index: -1; /* behind button */
-  transform: rotate(-2deg); /* slight rotation for cartoon effect */
+/* Keyframes for the up–down movement */
+@keyframes cartoon-bounce {
+  0% {
+    transform: rotate(-2deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-2deg) translateY(-10px); /* Move up */
+  }
+  100% {
+    transform: rotate(-2deg) translateY(0); /* Back down */
+  }
 }
+
+
+
 
 .atc {
   position: relative;

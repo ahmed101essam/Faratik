@@ -1,40 +1,77 @@
-<div class="max-w-6xl mx-auto mt-24 flex flex-col items-center justify-center">
-  {% form 'contact' %}
-    <h1 class="font-[bangers] text-6xl text-center my-8">Contact Us</h1>
-    <div class="flex flex-col justify-center items-center">
-      <div class="flex gap-6 items-center font-[poppins] my-4">
-        <label class="font-medium w-20 text-lg text-right">Name</label>
-        <input
-          type="text"
-          name="contact[name]"
-          id="contact_name"
-          class="border w-80 bg-white border-black border-dashed  focus:outline-0 py-1 px-2"
-        >
-      </div>
-      <div class="flex gap-6 items-center font-[poppins] my-4">
-        <label class="font-medium  w-20 text-lg text-right">Email</label>
-        <input
-          type="email"
+<div class="contact min-h-screen border-b-12 border-white">
+  <div class="w-full max-w-6xl mx-auto pt-24 p-2 flex  flex-col items-center justify-center">
+    {% form 'contact' %}
+      <div class="flex flex-col justify-center items-center w-full">
+        <h1 class="font-[bangers] text-6xl text-center my-0 md:my-2 flex items-center justify-center text-center w-56 md:w-80">
+          <img src="{{ "Contact_Us.png" | file_url}}" width="" height="" alt="Contact Us" class="block w-full">
+        </h1>
 
-          name="contact[email]"
-          id="contact_email"
-          class="border w-80 bg-white border-black border-dashed  focus:outline-0 py-1 px-2"
+        <!-- Name -->
+        <div class="flex flex-col gap-1 md:gap-6 md:flex-row items-start w-full md:items-center font-[poppins] my-1 md:my-4">
+          <label for="contact_name" class="font-medium w-20 text-md md:text-lg text-left md:text-right">Name</label>
+          <input
+            type="text"
+            name="contact[name]"
+            id="contact_name"
+            placeholder="Your name here"
+            class="border w-full md:w-80 bg-white border-black border-dashed focus:outline-0 py-1 px-2"
+            required
+          >
+        </div>
+
+        <!-- Email -->
+        <div class="flex flex-col gap-1 md:gap-6 md:flex-row items-start w-full md:items-center font-[poppins] my-1 md:my-4">
+          <label for="contact_email" class="font-medium w-20 text-md md:text-lg text-left md:text-right">Email</label>
+          <input
+            type="email"
+            name="contact[email]"
+            id="contact_email"
+            placeholder="Your email here"
+            class="border w-full md:w-80 bg-white border-black border-dashed focus:outline-0 py-1 px-2"
+            required
+          >
+        </div>
+
+        <div class="flex flex-col gap-1 md:gap-6 md:flex-row items-start w-full md:items-center font-[poppins] my-1 md:my-4">
+          <label for="contact_phone" class="font-medium w-20 text-md md:text-lg text-left md:text-right">Phone</label>
+          <input
+            type="tel"
+            name="contact[phone]"
+            id="contact_phone"
+            placeholder="Your phone here"
+            class="border w-full md:w-80 bg-white border-black border-dashed focus:outline-0 py-1 px-2"
+          >
+        </div>
+
+        <!-- Message -->
+        <div class="flex flex-col gap-1 md:gap-6 md:flex-row items-start w-full md:items-center font-[poppins] my-1 md:my-4">
+          <label for="contact_body" class="font-medium w-20 text-md md:text-lg text-left md:text-right">Message</label>
+          <textarea
+            name="contact[body]"
+            id="contact_body"
+            placeholder="Your message here"
+            class="border w-full md:w-80 bg-white border-black border-dashed focus:outline-0 py-1 px-2"
+            required
+          ></textarea>
+        </div>
+
+        <!-- Submit -->
+        <input
+          type="submit"
+          value="Send Message"
+          class="bg-[#cd0102] outlined-text text-2xl font-[bangers] px-2 py-1 cursor-pointer my-4 btn-cartoon w-3xs"
         >
+
+        <!-- Success Message -->
+        {% if form.posted_successfully? %}
+          <p class="text-green-600 font-[poppins] mt-4">Your message has been sent!</p>
+        {% endif %}
+
+        <!-- Error Handling -->
+        {% if form.errors %}
+          <p class="text-red-600 font-[poppins] mt-4">Please fill out all fields correctly.</p>
+        {% endif %}
       </div>
-      <div class="flex gap-6 items-center font-[poppins] my-4">
-        <label class="font-medium  text-lg w-20 text-right">Message</label>
-        <textarea
-          type="text"
-          name="contact[body]"
-          id="contact_body"
-          class="border bg-white w-80 resize-none border-black border-dashed  focus:outline-0 py-1 px-2"
-        ></textarea>
-      </div>
-      <input
-        type="submit"
-        value="Send Message"
-        class="bg-[#cd0102] outlined-text text-2xl font-[bangers] px-2 py-1 cursor-pointer my-4 btn-cartoon w-3xs"
-      >
-    </div>
-  {% endform %}
+    {% endform %}
+  </div>
 </div>

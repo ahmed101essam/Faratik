@@ -1,0 +1,30 @@
+<div class="mt-24">
+  <div class="max-w-6xl mx-auto mt-30">
+    {% form 'product', product %}
+      <div class="flex flex-col md:flex-row">
+        <div class="image-slider w-full  h-96">
+          <div class="w-1/2  border-black border-2 shadow-2xl h-full border mx-auto p-2 flex flex-col">
+            <div class="h-4/5">
+              <img
+                src="{{ product.featured_image | img_url:"large"}}"
+                class="block w-full h-full object-center"
+                width=""
+                height=""
+              >
+            </div>
+            <div class="relative h-full">
+              <div class="w-full flex justify-between items-center absolute bottom-0 left-0">
+                <button type="button" class="cursor-pointer"><i class="fa-solid fa-angle-left"></i></button>
+                <button type="button" class="cursor-pointer"><i class="fa-solid fa-angle-right"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info w-full">
+          <p class="font-[poppins] font-bold text-3xl mb-2">{{ product.title }}</p>
+          <p class="font-[bangers] font-black text-4xl text-[#ff7e06]">{{ product.price | money }}</p>
+        </div>
+      </div>
+    {% endform %}
+  </div>
+</div>

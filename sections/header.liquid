@@ -1,6 +1,6 @@
 <header class="fixed top-0 left-0 z-50 w-full bg-[#fde9d07e] backdrop-blur-sm">
   <div class="max-w-6xl mx-auto flex items-center justify-between py-3">
-    <ul class="flex items-center gap-2 flex-row-reverse">
+    <ul class="items-center gap-2 flex-row-reverse hidden md:flex">
       {% assign colors = 'bg-[#cd0102],bg-[#f2bb06],bg-[#ff7e06],bg-[#400afe],bg-[#400afe]' | split: ',' %}
 
       {% for link in linklists['main-menu'].links %}
@@ -16,6 +16,17 @@
           </a>
         </li>
       {% endfor %}
+      <li class="relative block mr-6 btn-cartoon bg-[#fde9d0] py-1 rounded w-36 border text-center border-black text-white text-xl font-medium">
+        <a
+          href="{{ routes.cart_clear_url }}"
+          class="text-2xl outlined-text font-bold text-white text-center font-[bangers] hover:text-gray-900"
+        >
+          Cart <i class="fa-solid fa-basket-shopping"></i>
+          <span class="bg-[#cd0102] w-8 h-8 absolute -top-3 right-0 rounded-full z-10">
+            {{- cart.item_count -}}
+          </span>
+        </a>
+      </li>
     </ul>
     <div>
       <a href="{{ routes.root_url }}">
