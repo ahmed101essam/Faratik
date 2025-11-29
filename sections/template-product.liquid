@@ -1,30 +1,242 @@
 <div class="mt-24">
-  <div class="max-w-6xl mx-auto mt-30">
+  <div class="max-w-6xl mx-auto mt-30 px-6 md:px-0">
     {% form 'product', product %}
-      <div class="flex flex-col md:flex-row">
-        <div class="image-slider w-full  h-96">
-          <div class="w-1/2  border-black border-2 shadow-2xl h-full border mx-auto p-2 flex flex-col">
-            <div class="h-4/5">
+      <div class="flex flex-col md:flex-row gap-8">
+        <!-- Image Slider Section -->
+        <div class="image-slider w-full md:w-1/2 h-96 md:h-[500px]">
+          <div class="border-black border-2 shadow-2xl h-full btn-cartoon bg-white p-3 flex flex-col">
+            <div class="h-4/5 mb-3" data-main-image-container>
               <img
-                src="{{ product.featured_image | img_url:"large"}}"
-                class="block w-full h-full object-center"
-                width=""
-                height=""
+                src="{{ product.featured_image | img_url: 'large' }}"
+                alt="{{ product.title }}"
+                class="block w-full h-full object-contain"
+                data-main-image
               >
             </div>
-            <div class="relative h-full">
-              <div class="w-full flex justify-between items-center absolute bottom-0 left-0">
-                <button type="button" class="cursor-pointer"><i class="fa-solid fa-angle-left"></i></button>
-                <button type="button" class="cursor-pointer"><i class="fa-solid fa-angle-right"></i></button>
+            <div class="relative h-1/5">
+              <!-- Thumbnail Navigation -->
+              <div class="flex gap-2 overflow-x-auto pb-2" data-thumbnails>
+                {% for image in product.images %}
+                  <button
+                    type="button"
+                    class="flex-shrink-0 w-16 h-16 border-2 border-black btn-cartoon bg-white cursor-pointer hover:border-[#ff7e06] transition-colors {% if forloop.first %}border-[#ff7e06]{% endif %}"
+                    data-thumbnail
+                    data-image-url="{{ image | img_url: 'large' }}"
+                  >
+                    <img
+                      src="{{ image | img_url: 'small' }}"
+                      alt="{{ product.title }}"
+                      class="w-full h-full object-cover"
+                    >
+                  </button>
+                {% endfor %}
+              </div>
+              <!-- Arrow Navigation -->
+              <div class="w-full flex justify-between items-center absolute bottom-0 left-0 px-2">
+                <button
+                  type="button"
+                  class="cursor-pointer bg-white btn-cartoon w-10 h-10 flex items-center justify-center hover:bg-[#ff7e06] hover:text-white transition-colors"
+                  data-prev-btn
+                >
+                  <i class="fa-solid fa-angle-left text-2xl"></i>
+                </button>
+                <button
+                  type="button"
+                  class="cursor-pointer bg-white btn-cartoon w-10 h-10 flex items-center justify-center hover:bg-[#ff7e06] hover:text-white transition-colors"
+                  data-next-btn
+                >
+                  <i class="fa-solid fa-angle-right text-2xl"></i>
+                </button>
               </div>
             </div>
           </div>
         </div>
-        <div class="info w-full">
-          <p class="font-[poppins] font-bold text-3xl mb-2">{{ product.title }}</p>
-          <p class="font-[bangers] font-black text-4xl text-[#ff7e06]">{{ product.price | money }}</p>
+
+        <!-- Product Info Section -->
+        <div class="info w-full md:w-1/2 flex flex-col gap-4">
+          <!-- Title and Price -->
+          <div>
+            <p class="font-[poppins] font-bold text-3xl md:text-4xl mb-2 outlined-text-sm">{{ product.title }}</p>
+            <p class="font-[bangers] font-black text-4xl md:text-5xl text-[#ff7e06] outlined-text">
+              {{ product.price | money }}
+            </p>
+            {% if product.compare_at_price > product.price %}
+              <p class="font-[poppins] text-xl text-gray-500 line-through">
+                {{ product.compare_at_price | money }}
+              </p>
+            {% endif %}
+          </div>
+
+          <!-- Description -->
+          <div class="border-2 border-black btn-cartoon bg-[#fde9d0] p-4">
+            <h3 class="font-[bangers] text-2xl outlined-text-sm mb-2">Description</h3>
+            <div class="font-[poppins] text-base leading-relaxed">
+              {{ product.description }}
+            </div>
+          </div>
+
+          <!-- Variants -->
+          {% if product.variants.size > 1 %}
+            <div class="border-2 border-black btn-cartoon bg-white p-4">
+              <label class="font-[bangers] text-2xl outlined-text-sm mb-2 block">Select Option</label>
+              <select
+                name="id"
+                class="w-full p-3 border-2 border-black btn-cartoon font-[poppins] text-lg cursor-pointer bg-[#fde9d0] focus:outline-none focus:border-[#ff7e06]"
+              >
+                {% for variant in product.variants %}
+                  <option
+                    value="{{ variant.id }}"
+                    {% if variant.available == false %}
+                      disabled
+                    {% endif %}
+                  >
+                    {{ variant.title }} - {{ variant.price | money }}
+                    {% if variant.available == false %} (Sold Out){% endif %}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          {% else %}
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+          {% endif %}
+
+          <!-- Quantity -->
+          <div class="border-2 border-black btn-cartoon bg-white p-4">
+            <label class="font-[bangers] text-2xl outlined-text-sm mb-2 block">Quantity</label>
+            <div class="flex items-center gap-3">
+              <button
+                type="button"
+                class="w-12 h-12 bg-[#fde9d0] btn-cartoon border-2 border-black font-[bangers] text-2xl hover:bg-[#ff7e06] hover:text-white transition-colors"
+                data-quantity-decrease
+              >
+                -
+              </button>
+              <input
+                type="number"
+                name="quantity"
+                value="1"
+                min="1"
+                class="w-20 h-12 text-center border-2 border-black btn-cartoon font-[poppins] text-xl bg-white focus:outline-none focus:border-[#ff7e06]"
+                data-quantity-input
+              >
+              <button
+                type="button"
+                class="w-12 h-12 bg-[#fde9d0] btn-cartoon border-2 border-black font-[bangers] text-2xl hover:bg-[#ff7e06] hover:text-white transition-colors"
+                data-quantity-increase
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <!-- Add to Cart Button -->
+          <button
+            type="submit"
+            class="w-full py-4 bg-[#cd0102] btn-cartoon border-2 border-black text-white font-[bangers] text-3xl outlined-text hover:bg-[#ff7e06] transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+            {% if product.available == false %}
+              disabled
+            {% endif %}
+          >
+            {% if product.available %}
+              Add to Cart <i class="fa-solid fa-cart-plus"></i>
+            {% else %}
+              Sold Out
+            {% endif %}
+          </button>
+
+          <!-- Additional Info -->
+          <div class="flex gap-3 flex-wrap">
+            <div class="flex-1 min-w-[150px] border-2 border-black btn-cartoon bg-[#f2bb06] p-3 text-center">
+              <i class="fa-solid fa-truck text-2xl outlined-text-sm"></i>
+              <p class="font-[bangers] text-lg outlined-text-sm mt-1">Free Shipping</p>
+            </div>
+            <div class="flex-1 min-w-[150px] border-2 border-black btn-cartoon bg-[#400afe] p-3 text-center">
+              <i class="fa-solid fa-shield-halved text-2xl outlined-text-sm text-white"></i>
+              <p class="font-[bangers] text-lg outlined-text-sm text-white mt-1">Secure Payment</p>
+            </div>
+            <div class="flex-1 min-w-[150px] border-2 border-black btn-cartoon bg-[#ff7e06] p-3 text-center">
+              <i class="fa-solid fa-rotate-left text-2xl outlined-text-sm text-white"></i>
+              <p class="font-[bangers] text-lg outlined-text-sm text-white mt-1">Easy Returns</p>
+            </div>
+          </div>
         </div>
       </div>
     {% endform %}
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Image Slider Functionality
+    const mainImage = document.querySelector('[data-main-image]');
+    const thumbnails = document.querySelectorAll('[data-thumbnail]');
+    const prevBtn = document.querySelector('[data-prev-btn]');
+    const nextBtn = document.querySelector('[data-next-btn]');
+    let currentIndex = 0;
+
+    // Thumbnail click
+    thumbnails.forEach((thumbnail, index) => {
+      thumbnail.addEventListener('click', () => {
+        const imageUrl = thumbnail.dataset.imageUrl;
+        mainImage.src = imageUrl;
+        currentIndex = index;
+        updateActiveThumbnail();
+      });
+    });
+
+    // Previous button
+    prevBtn.addEventListener('click', () => {
+      currentIndex = currentIndex > 0 ? currentIndex - 1 : thumbnails.length - 1;
+      thumbnails[currentIndex].click();
+    });
+
+    // Next button
+    nextBtn.addEventListener('click', () => {
+      currentIndex = currentIndex < thumbnails.length - 1 ? currentIndex + 1 : 0;
+      thumbnails[currentIndex].click();
+    });
+
+    // Update active thumbnail border
+    function updateActiveThumbnail() {
+      thumbnails.forEach((thumb, index) => {
+        if (index === currentIndex) {
+          thumb.classList.add('border-[#ff7e06]');
+          thumb.classList.remove('border-black');
+        } else {
+          thumb.classList.remove('border-[#ff7e06]');
+          thumb.classList.add('border-black');
+        }
+      });
+    }
+
+    // Quantity Controls
+    const quantityInput = document.querySelector('[data-quantity-input]');
+    const decreaseBtn = document.querySelector('[data-quantity-decrease]');
+    const increaseBtn = document.querySelector('[data-quantity-increase]');
+
+    decreaseBtn.addEventListener('click', () => {
+      const currentValue = parseInt(quantityInput.value);
+      if (currentValue > 1) {
+        quantityInput.value = currentValue - 1;
+      }
+    });
+
+    increaseBtn.addEventListener('click', () => {
+      const currentValue = parseInt(quantityInput.value);
+      quantityInput.value = currentValue + 1;
+    });
+
+    // Prevent negative or zero quantity
+    quantityInput.addEventListener('change', () => {
+      if (parseInt(quantityInput.value) < 1) {
+        quantityInput.value = 1;
+      }
+    });
+  });
+</script>
+
+<style>
+  .outlined-text-sm {
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  }
+</style>

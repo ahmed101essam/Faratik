@@ -1,0 +1,51 @@
+<div class="mt-24 max-w-6xl mx-auto px-4">
+  <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'image' %}
+          <div class="overflow-hidden rounded-lg" {{ block.shopify_attributes }}>
+            {% if block.settings.image %}
+              <img
+                width=""
+                height=""
+                src="{{ block.settings.image | img_url: '600x600', crop: 'center' }}"
+                alt="{{ block.settings.image.alt | escape }}"
+                loading="lazy"
+                class="w-full h-full object-cover"
+              >
+            {% else %}
+              <div class="bg-gray-200 aspect-square flex items-center justify-center">
+                <span class="text-gray-400">Add image</span>
+              </div>
+            {% endif %}
+          </div>
+      {% endcase %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "About Us Images",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Us Images",
+      "blocks": [{ "type": "image" }, { "type": "image" }, { "type": "image" }, { "type": "image" }]
+    }
+  ]
+}
+{% endschema %}

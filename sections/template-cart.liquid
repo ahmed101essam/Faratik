@@ -1,0 +1,60 @@
+<div class="max-w-6xl mx-auto mt-30">
+  <div class="relative btn-cartoon min-h-12">
+    <h2 class="absolute left-1/2 -rotate-6 -translate-x-1/2 top-0 -translate-y-1/2 font-[bangers] bg-[#cd0102] w-fit px-4 btn-cartoon outlined-text text-3xl">
+      Your Cart
+    </h2>
+
+    <form
+      action="{{ routes.cart_url }}"
+      method="POST"
+      novalidate
+      class="px-3 pt-8 flex flex-col justify-center items-center"
+    >
+      {% for item in cart.items %}
+        <div class="btn-cartoon flex items-center justify-between gap-4 w-full p-3 max-w-2xl my-4 bg-white">
+          <img src="{{ item.image | image_url}}" class="border object-contain border-4 w-30 h-30">
+          <div>
+            <p class="font-[bangers] text-3xl">{{ item.title }}</p>
+            <p class="text-[#cd0102] font-[bangers] text-2xl">{{ item.final_price | money }}</p>
+          </div>
+          <div class="flex items-center">
+            <button
+              data-quantity="{{ item.quantity }}"
+              type="button"
+              data-line="{{ forloop.index }}"
+              class="bg-white btn-cartoon w-8 h-8"
+            >
+              <i class="fa-solid fa-minus"></i>
+            </button>
+            <input
+              type="number"
+              name="updates[]"
+              id="updates_{{ forloop.index }}"
+              value="{{ item.quantity }}"
+              min="0"
+              disabled
+              data-line="{{ forloop.index }}"
+              class="w-10 focus:outline-none text-center font-[bangers] text-3xl"
+            >
+            <button
+              data-quantity="{{ item.quantity }}"
+              type="button"
+              data-line="{{ forloop.index }}"
+              class="bg-white btn-cartoon w-8 h-8"
+            >
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+          <div>
+            {{ item.final_line_price | money }}
+          </div>
+          <div>
+            <button class="font-[bangers] text-[#cd0102] font-bold text-sm">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+      {% endfor %}
+    </form>
+  </div>
+</div>

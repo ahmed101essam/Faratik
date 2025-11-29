@@ -4,6 +4,15 @@
   background-size: cover;
   background-position: center;
 }
+input[type=number] {
+  -moz-appearance: textfield;     /* Firefox */
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;       /* Chrome, Safari, Edge */
+  margin: 0;
+}
 
 /* Medium screens (768px+) and up */
 @media (min-width: 768px) {
@@ -93,6 +102,7 @@
     background-image: url('hero.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
 }
 
 @import "tailwindcss"
