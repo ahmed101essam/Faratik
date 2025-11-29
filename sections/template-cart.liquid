@@ -11,13 +11,13 @@
       class="px-3 pt-8 flex flex-col justify-center items-center"
     >
       {% for item in cart.items %}
-        <div class="btn-cartoon grid grid-cols-2 md:grid-cols-4 justify-items-center items-center justify-between gap-4 w-full p-3 max-w-2xl my-4 bg-white">
+        <div class="btn-cartoon grid grid-cols-2 md:grid-cols-4 justify-items-start items-start md:items-center justify-between gap-4 w-full p-3 max-w-2xl my-4 bg-white">
           <img width="" height="" src="{{ item.image | image_url}}" class="object-contain border-4 w-30 h-30">
           <div>
             <p class="font-[bangers] text-xl md:text-2xl">{{ item.title }}</p>
             <p class="text-[#cd0102] font-[bangers] text-lg md:text-xl">{{ item.final_price | money }}</p>
           </div>
-          <div class="flex items-center">
+          <div class="flex items-center gap-1">
             <button
               data-quantity="{{ item.quantity }}"
               type="button"
@@ -34,7 +34,7 @@
               min="0"
               readonly
               data-line="{{ forloop.index }}"
-              class="w-10 focus:outline-none text-center font-[bangers] text-3xl"
+              class="w-10 focus:outline-none text-center font-bold text-3xl"
             >
             <button
               data-quantity="{{ item.quantity }}"
@@ -46,7 +46,7 @@
             </button>
           </div>
           <div>
-            <div>
+            <div class="font-bold text-2xl">
               {{ item.final_line_price | money }}
             </div>
             <a href="{{ item.url_to_remove }}" class="font-[bangers] text-black hover:text-[#cd0102] font-bold text-sm">
@@ -55,14 +55,14 @@
           </div>
         </div>
       {% endfor %}
-      <div class="grid grid-cols-2 md:grid-cols-3 items-center justify-between gap-4 w-full p-3 max-w-2xl my-4">
+      <div class="grid grid-cols-2 md:grid-cols-4 items-center justify-between gap-4 w-full p-3 max-w-2xl my-4">
         <input type="submit" value="Update cart" id="update-cart" class="hidden">
         <a
           href="{{ routes.all_products_collection_url }}"
           class="flex gap-1 items-center font-[bangers] hover:text-[#400afe]"
           >Continue Shopping <i class="fa-solid fa-arrow-right"></i
         ></a>
-        <p class="bg-[#ff7e06] btn-cartoon text-xl md:text-3xl  transition-colors duration-300 text-white font-bold px-4 py-1.5">
+        <p class="bg-[#ff7e06] md:col-span-2 btn-cartoon text-xl md:text-3xl  transition-colors duration-300 text-white font-bold px-4 py-1.5">
           TOTAL: {{ cart.total_price | money }}
         </p>
         <input

@@ -607,6 +607,9 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   .justify-items-center {
     justify-items: center;
   }
+  .justify-items-start {
+    justify-items: start;
+  }
   .gap-1 {
     gap: calc(var(--spacing) * 1);
   }
@@ -1021,6 +1024,11 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
       background-color: var(--color-gray-400);
     }
   }
+  .md\:col-span-2 {
+    @media (width >= 48rem) {
+      grid-column: span 2 / span 2;
+    }
+  }
   .md\:my-2 {
     @media (width >= 48rem) {
       margin-block: calc(var(--spacing) * 2);
@@ -1084,6 +1092,11 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   .md\:items-center {
     @media (width >= 48rem) {
       align-items: center;
+    }
+  }
+  .md\:justify-items-center {
+    @media (width >= 48rem) {
+      justify-items: center;
     }
   }
   .md\:gap-6 {
