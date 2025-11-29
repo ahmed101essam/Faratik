@@ -1,8 +1,81 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-    "sections":{
-        "template":{
-            "type":"template-about-us"
+  "sections": {
+    "template_about_us_FcbtMf": {
+      "type": "template-about-us",
+      "blocks": {
+        "image_VNnKcn": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Faratik_Story_Panel_1_-_The_Programmer.webp"
+          }
+        },
+        "image_peJ3gk": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Faratik_Story_Panel_2_-_The_Designer.webp"
+          }
+        },
+        "image_mMfgYt": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Faratik_Story_Panel_3_-_Penguin_Arrival.webp"
+          }
+        },
+        "image_WgQ8Bp": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/panel_4_-What_is_this_thing.webp"
+          }
+        },
+        "image_9VD6BH": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Faratik_Story_Panel_5_-_It_s_Faratik.webp"
+          }
+        },
+        "image_rCnWFR": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/panel_6.webp"
+          }
+        },
+        "image_fwbXnW": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/panel_7.webp"
+          }
+        },
+        "image_LAqz9G": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Faratik_Story_Panel_8_-_Brand_Finale.webp"
+          }
         }
-    },
-    "order":["template"]
+      },
+      "block_order": [
+        "image_VNnKcn",
+        "image_peJ3gk",
+        "image_mMfgYt",
+        "image_WgQ8Bp",
+        "image_9VD6BH",
+        "image_rCnWFR",
+        "image_fwbXnW",
+        "image_LAqz9G"
+      ],
+      "name": "About Us Images",
+      "settings": {}
+    }
+  },
+  "order": [
+    "template_about_us_FcbtMf"
+  ]
 }
