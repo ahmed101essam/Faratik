@@ -4,6 +4,19 @@
   background-size: cover;
   background-position: center;
 }
+:root {
+  color-scheme: light;
+}
+
+html {
+  -webkit-color-scheme: light;
+  color-scheme: light;
+}
+
+img, video, svg, canvas {
+  color-scheme: light;
+}
+
 input[type=number] {
   -moz-appearance: textfield;     /* Firefox */
 }
