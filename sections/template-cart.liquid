@@ -98,7 +98,9 @@
         console.log(line);
         const input = document.getElementById(`updates_${line}`);
         const quantity = parseInt(input.value);
-        input.value = quantity - 1;
+        if (input.value > 0) {
+          input.value = quantity - 1;
+        }
         updateBtn.click();
       });
     });
