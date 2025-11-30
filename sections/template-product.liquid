@@ -9,6 +9,8 @@
               <img
                 src="{{ product.featured_image | img_url: 'large' }}"
                 alt="{{ product.title }}"
+                height=""
+                width=""
                 class="block w-full h-full object-contain"
                 data-main-image
               >
@@ -57,19 +59,19 @@
           <!-- Title and Price -->
           <div>
             <p class="font-[poppins] font-bold text-3xl md:text-4xl mb-2 outlined-text-sm">{{ product.title }}</p>
-            <p class="font-[bangers] font-black text-4xl md:text-5xl text-[#ff7e06] outlined-text">
+            <p class="font-[bangers] font-black text-4xl md:text-5xl outlined-text text-[#ff7e06]">
               {{ product.price | money }}
             </p>
             {% if product.compare_at_price > product.price %}
-              <p class="font-[poppins] text-xl text-gray-500 line-through">
+              <p class="font-[poppins] text-3xl line-through">
                 {{ product.compare_at_price | money }}
               </p>
             {% endif %}
           </div>
 
           <!-- Description -->
-          <div class="border-2 border-black btn-cartoon bg-[#fde9d0] p-4">
-            <h3 class="font-[bangers] text-2xl outlined-text-sm mb-2">Description</h3>
+          <div class="border-2 border-black btn-cartoon bg-[#ff7e06] p-4">
+            <h3 class="font-[bangers] text-2xl outlined-text mb-2">Description</h3>
             <div class="font-[poppins] text-base leading-relaxed">
               {{ product.description }}
             </div>
@@ -77,8 +79,8 @@
 
           <!-- Variants -->
           {% if product.variants.size > 1 %}
-            <div class="border-2 border-black btn-cartoon bg-white p-4">
-              <label class="font-[bangers] text-2xl outlined-text-sm mb-2 block">Select Option</label>
+            <div class="border-2 border-black btn-cartoon bg-[#f2bb06] p-4">
+              <label class="font-[bangers] text-2xl outlined-text mb-2 block">Select Option</label>
               <select
                 name="id"
                 class="w-full p-3 border-2 border-black btn-cartoon font-[poppins] text-lg cursor-pointer bg-[#fde9d0] focus:outline-none focus:border-[#ff7e06]"
@@ -102,7 +104,7 @@
 
           <!-- Quantity -->
           <div class="border-2 border-black btn-cartoon bg-white p-4">
-            <label class="font-[bangers] text-2xl outlined-text-sm mb-2 block">Quantity</label>
+            <label class="font-[bangers] text-2xl outlined-text mb-2 block">Quantity</label>
             <div class="flex items-center gap-3">
               <button
                 type="button"
@@ -147,16 +149,16 @@
           <!-- Additional Info -->
           <div class="flex gap-3 flex-wrap">
             <div class="flex-1 min-w-[150px] border-2 border-black btn-cartoon bg-[#f2bb06] p-3 text-center">
-              <i class="fa-solid fa-truck text-2xl outlined-text-sm"></i>
-              <p class="font-[bangers] text-lg outlined-text-sm mt-1">Free Shipping</p>
+              <i class="fa-solid fa-truck text-2xl outlined-text"></i>
+              <p class="font-[bangers] text-lg outlined-text mt-1">Free Shipping</p>
             </div>
             <div class="flex-1 min-w-[150px] border-2 border-black btn-cartoon bg-[#400afe] p-3 text-center">
-              <i class="fa-solid fa-shield-halved text-2xl outlined-text-sm text-white"></i>
-              <p class="font-[bangers] text-lg outlined-text-sm text-white mt-1">Secure Payment</p>
+              <i class="fa-solid fa-shield-halved text-2xl outlined-text text-white"></i>
+              <p class="font-[bangers] text-lg outlined-text text-white mt-1">Secure Payment</p>
             </div>
             <div class="flex-1 min-w-[150px] border-2 border-black btn-cartoon bg-[#ff7e06] p-3 text-center">
-              <i class="fa-solid fa-rotate-left text-2xl outlined-text-sm text-white"></i>
-              <p class="font-[bangers] text-lg outlined-text-sm text-white mt-1">Easy Returns</p>
+              <i class="fa-solid fa-rotate-left text-2xl outlined-text text-white"></i>
+              <p class="font-[bangers] text-lg outlined-text text-white mt-1">Easy Returns</p>
             </div>
           </div>
         </div>
