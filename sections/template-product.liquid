@@ -63,7 +63,7 @@
               {{ product.price | money }}
             </p>
             {% if product.compare_at_price > product.price %}
-              <p class="font-[poppins] text-3xl line-through">
+              <p class="font-[poppins] text-3xl line-through text-[#cd0102]">
                 {{ product.compare_at_price | money }}
               </p>
             {% endif %}
