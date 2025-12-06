@@ -1,6 +1,34 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-  "current": "Default",
+  "current": {
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {}
+      },
+      "homepage": {
+        "type": "homepage",
+        "settings": {
+          "desk_hero": "shopify://shop_images/WhatsApp_Image_2025-11-24_at_4.25.25_PM_2.jpg",
+          "mobile_hero": "shopify://shop_images/cover_image_for_web_mobile_version.webp"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {}
+      }
+    },
+    "content_for_index": []
+  },
   "presets": {
-    "Default": { }
+    "Default": {}
   }
 }
