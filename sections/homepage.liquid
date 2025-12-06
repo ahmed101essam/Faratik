@@ -1,7 +1,45 @@
-<div class="hero min-h-screen border-b-12 border-white relative">
-  <a href="{{ routes.collections_url }}"
-    ><button class="absolute bg-[#f2bb06] btn-cartoon-orange text-3xl font-[bangers] bottom-3 px-3 py-2 left-1/2 -translate-x-1/2">
+<div
+  class="hero bg-cover bg-center bg-no-repeat min-h-screen border-b-12 border-white relative"
+  style="
+    {% if section.settings.mobile_hero %}
+      background-image: url('{{ section.settings.mobile_hero | image_url: width: 800 }}');
+    {% endif %}
+  "
+>
+  <a href="{{ routes.collections_url }}">
+    <button
+      class="absolute bg-[#f2bb06] btn-cartoon-orange text-3xl font-[bangers] bottom-3 px-3 py-2 left-1/2 -translate-x-1/2"
+    >
       <p>Explore collection!</p>
-    </button></a
-  >
+    </button>
+  </a>
 </div>
+
+<style>
+  /* Desktop override */
+  @media (min-width: 768px) {
+    .hero {
+      {% if section.settings.desk_hero %}
+        background-image: url('{{ section.settings.desk_hero | image_url: width: 1920 }}') !important;
+      {% endif %}
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Home Page Schema",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desk_hero",
+      "label": "Desktop Hero Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_hero",
+      "label": "Mobile Hero Image"
+    }
+  ]
+}
+{% endschema %}
