@@ -27,6 +27,7 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 }
 
+
 /* Medium screens (768px+) and up */
 @media (min-width: 768px) {
   .contact {
@@ -56,7 +57,6 @@ input[type=number]::-webkit-outer-spin-button {
     0 0 5px rgba(0,0,0,0.3);
   border: 3px solid #000;
   border-radius: 12px;
-  padding: 0.75rem 1.5rem;
   background-color: #ff9506;
   cursor: pointer;
   font-weight: bold;
@@ -111,11 +111,6 @@ input[type=number]::-webkit-outer-spin-button {
   z-index: 10;
 }
 
-.hero{
-    background-image: url('hero.jpeg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
+
 
 @import "tailwindcss"

@@ -1,21 +1,50 @@
-<div
-  class="hero bg-cover bg-center bg-no-repeat min-h-screen border-b-12 border-white relative"
-  style="
-    {% if section.settings.mobile_hero %}
-      background-image: url('{{ section.settings.mobile_hero | image_url: width: 800 }}');
-    {% endif %}
-  "
->
-  <a href="{{ routes.collections_url }}">
-    <button
-      class="absolute bg-[#f2bb06] btn-cartoon-orange text-3xl font-[bangers] bottom-3 px-3 py-2 left-1/2 -translate-x-1/2"
-    >
-      <p>Explore collection!</p>
-    </button>
-  </a>
+<div>
+  <div
+    class="hero bg-cover bg-center bg-no-repeat min-h-screen border-b-[12px] border-white relative"
+    style="
+      {% if section.settings.mobile_hero %}
+        background-image: url('{{ section.settings.mobile_hero | image_url: width: 800 }}');
+      {% endif %}
+    "
+  >
+    <a href="{{ routes.collections_url }}" class="absolute bottom-3 left-1/2 -translate-x-1/2">
+      <button
+        class="bg-[#f2bb06] text-xl btn-cartoon-orange md:text-3xl font-[bangers] px-3 py-1 md:px-3 md:py-2"
+      >
+        Explore collection!
+      </button>
+    </a>
+  </div>
+
+  <div class="max-w-6xl mx-auto my-6 px-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- Free Shipping Card -->
+    <div class="card p-6 md:p-10 btn-cartoon bg-[#f2bb06] text-2xl md:text-3xl outlined-text font-[bangers]">
+      Free Shipping for Orders above {{ 30000 | money }}
+    </div>
+
+    <!-- Contact Card -->
+    <div class="card p-6 md:p-10 btn-cartoon bg-[#f2bb06] text-2xl md:text-3xl outlined-text font-[bangers] flex flex-col gap-3">
+      <p>Big Deals and Office Celebrations Just Contact Us</p>
+      <a href="{{ routes.root_url }}pages/contact" class="inline-block">
+        <button class="cursor-pointer px-4 py-2 bg-white hover:bg-gray-100 transition-colors rounded">
+          Contact Us Now
+        </button>
+      </a>
+    </div>
+  </div>
 </div>
 
 <style>
+  .card {
+    {% if section.settings.card_pattern %}
+      background-image: url('{{ section.settings.card_pattern | image_url }}');
+    {% else %}
+      background-image: url('{{ "yellow-pattern.png" | asset_url }}');
+    {% endif %}
+    background-size: cover;
+    background-position: center;
+  }
+
   /* Desktop override */
   @media (min-width: 768px) {
     .hero {
@@ -39,6 +68,16 @@
       "type": "image_picker",
       "id": "mobile_hero",
       "label": "Mobile Hero Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_pattern",
+      "label": "Card Background Pattern (optional)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Section"
     }
   ]
 }
