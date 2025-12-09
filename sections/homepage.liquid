@@ -34,7 +34,12 @@
     <div
       class="card border-4 border-black rounded-lg text-xl md:text-3xl text-black font-bold font-[poppins] flex flex-col gap-3"
     >
-      <img src="{{ section.settings.card_image }}" width="" height="" class="w-full h-full object-center object-cover">
+      <img
+        src="{{ section.settings.card_image | image_url:"large"}}"
+        width=""
+        height=""
+        class="w-full h-full object-center object-cover"
+      >
     </div>
   </div>
 </div>
