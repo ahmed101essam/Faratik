@@ -16,20 +16,25 @@
     </a>
   </div>
 
-  <div class="max-w-6xl mx-auto my-6 px-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="max-w-6xl mx-auto my-6 px-4 grid grid-cols-2 md:grid-cols-3 gap-4">
     <!-- Free Shipping Card -->
-    <div class="card p-6 md:p-10 btn-cartoon bg-[#f2bb06] text-2xl md:text-3xl outlined-text font-[bangers]">
+    <div class="card px-3 py-1.5 border-4 border-black rounded-lg shadow-lg  text-xl md:text-2xl text-black font-bold font-[poppins]">
       Free Shipping for Orders above {{ 30000 | money }}
     </div>
 
     <!-- Contact Card -->
-    <div class="card p-6 md:p-10 btn-cartoon bg-[#f2bb06] text-2xl md:text-3xl outlined-text font-[bangers] flex flex-col gap-3">
+    <div class="card px-3 py-1.5 border-4 border-black rounded-lg text-xl md:text-2xl text-black font-bold font-[poppins] flex flex-col gap-3">
       <p>Big Deals and Office Celebrations Just Contact Us</p>
       <a href="{{ routes.root_url }}pages/contact" class="inline-block">
-        <button class="cursor-pointer px-4 py-2 bg-white hover:bg-gray-100 transition-colors rounded">
+        <button class="cursor-pointer text-white btn-cartoon px-4 py-1 bg-[#cd0102] hover:bg-[#ab0101] transition-colors rounded">
           Contact Us Now
         </button>
       </a>
+    </div>
+    <div
+      class="card border-4 border-black rounded-lg text-xl md:text-3xl text-black font-bold font-[poppins] flex flex-col gap-3"
+    >
+      <img src="{{ section.settings.card_image }}" width="" height="" class="w-full h-full object-center object-cover">
     </div>
   </div>
 </div>
@@ -41,7 +46,7 @@
     {% else %}
       background-image: url('{{ "yellow-pattern.png" | asset_url }}');
     {% endif %}
-    background-size: cover;
+    background-size: contain;
     background-position: center;
   }
 
@@ -73,6 +78,11 @@
       "type": "image_picker",
       "id": "card_pattern",
       "label": "Card Background Pattern (optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_image",
+      "label": "Image for the third card"
     }
   ],
   "presets": [
