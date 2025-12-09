@@ -7,39 +7,141 @@
       {% endif %}
     "
   >
-    <a href="{{ routes.collections_url }}" class="absolute bottom-3 left-1/2 -translate-x-1/2">
-      <button
-        class="bg-[#f2bb06] text-xl btn-cartoon-orange md:text-3xl font-[bangers] px-3 py-1 md:px-3 md:py-2"
-      >
-        Explore collection!
-      </button>
+    <a
+      href="{{ routes.collections_url }}"
+      class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-[#f2bb06] text-xl btn-cartoon-orange md:text-3xl font-['Bangers'] px-3 py-1 md:px-3 md:py-2 inline-block hover:scale-105 transition-transform"
+    >
+      Explore collection!
     </a>
   </div>
 
-  <div class="max-w-6xl mx-auto my-6 px-4 grid grid-cols-2 md:grid-cols-3 gap-4">
+  <div class="max-w-6xl mx-auto my-6 px-4 grid grid-cols-1 md:grid-cols-3 gap-4">
     <!-- Free Shipping Card -->
-    <div class="card px-3 py-1.5 border-4 border-black rounded-lg shadow-lg  text-xl md:text-2xl text-black font-bold font-[poppins]">
+    <div class="card px-4 py-6 border-4 border-black rounded-lg shadow-lg text-lg md:text-xl text-black font-bold font-['Poppins'] flex items-center justify-center text-center">
       Free Shipping for Orders above {{ 30000 | money }}
     </div>
 
     <!-- Contact Card -->
-    <div class="card px-3 py-1.5 border-4 border-black rounded-lg text-xl md:text-2xl text-black font-bold font-[poppins] flex flex-col gap-3">
+    <div class="card px-4 py-6 border-4 border-black rounded-lg shadow-lg text-lg md:text-xl text-black font-bold font-['Poppins'] flex flex-col gap-3 justify-center items-center text-center">
       <p>Big Deals and Office Celebrations Just Contact Us</p>
-      <a href="{{ routes.root_url }}pages/contact" class="inline-block">
-        <button class="cursor-pointer text-white btn-cartoon px-4 py-1 bg-[#cd0102] hover:bg-[#ab0101] transition-colors rounded">
-          Contact Us Now
-        </button>
+      <a
+        href="{{ routes.root_url }}pages/contact"
+        class="cursor-pointer text-white btn-cartoon px-4 py-2 bg-[#cd0102] hover:bg-[#ab0101] transition-colors rounded inline-block"
+      >
+        Contact Us Now
       </a>
     </div>
-    <div
-      class="card border-4 border-black rounded-lg text-xl md:text-3xl text-black font-bold font-[poppins] flex flex-col gap-3"
-    >
-      <img
-        src="{{ section.settings.card_image | image_url:"large"}}"
-        width=""
-        height=""
-        class="w-full h-full object-center object-cover"
-      >
+
+    <!-- Image Card -->
+    <div class="card-image border-4 border-black rounded-lg shadow-lg overflow-hidden">
+      {% if section.settings.card_image %}
+        <img
+          src="{{ section.settings.card_image | image_url: width: 600 }}"
+          alt="{{ section.settings.card_image_alt | default: 'Featured product' }}"
+          loading="lazy"
+          class="w-full h-full object-cover object-center max-h-[200px]"
+        >
+      {% else %}
+        <div class="w-full h-full min-h-[200px] bg-gray-200 flex items-center justify-center text-gray-500">
+          No image selected
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Products Swiper Section -->
+  <div class="max-w-6xl mx-auto my-12 px-4">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-3xl md:text-4xl font-['Bangers'] text-black">
+        {{ section.settings.swiper_title | default: 'New Arrivals' }}
+      </h2>
+    </div>
+
+    <!-- Swiper Container -->
+    <div class="swiper product-swiper rounded-lg shadow-lg p-4">
+      <div class="swiper-wrapper">
+        {% if section.settings.product_collection != blank %}
+          {% assign collection = collections[section.settings.product_collection] %}
+          {% for product in collection.products limit: 12 %}
+            <div class="swiper-slide">
+              <div class="product-card border-2 border-black rounded-lg overflow-hidden bg-white hover:shadow-xl transition-shadow">
+                <a href="{{ product.url }}">
+                  {% if product.featured_image %}
+                    <img
+                      src="{{ product.featured_image | image_url: width: 400 }}"
+                      alt="{{ product.featured_image.alt | default: product.title }}"
+                      loading="lazy"
+                      class="w-full h-48 object-cover"
+                    >
+                  {% else %}
+                    <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                      <span class="text-gray-400">No image</span>
+                    </div>
+                  {% endif %}
+                </a>
+
+                <div class="p-4">
+                  <a href="{{ product.url }}" class="block">
+                    <h3 class="font-['Poppins'] font-bold text-base md:text-lg text-black mb-2 line-clamp-2 hover:text-[#cd0102] transition-colors">
+                      {{ product.title }}
+                    </h3>
+                  </a>
+
+                  <div class="flex items-center justify-between">
+                    <span class="font-['Poppins'] font-bold text-lg text-[#cd0102]">
+                      {{ product.price | money }}
+                    </span>
+                    {% if product.compare_at_price > product.price %}
+                      <span class="font-['Poppins'] text-sm text-gray-500 line-through">
+                        {{ product.compare_at_price | money }}
+                      </span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+
+          <!-- View All Slide -->
+          <div class="swiper-slide">
+            <a href="{{ collection.url }}" class="block h-full">
+              <div class="product-card border-4 border-black rounded-lg bg-[#f2bb06] hover:bg-[#e0ab00] transition-colors h-full flex flex-col items-center justify-center p-8 min-h-[320px]">
+                <svg class="w-16 h-16 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+                <h3 class="font-['Bangers'] text-2xl md:text-3xl text-black text-center">View All Products</h3>
+                <p class="font-['Poppins'] text-sm mt-2 text-black">Explore our full collection</p>
+              </div>
+            </a>
+          </div>
+        {% else %}
+          <!-- Placeholder slides when no collection selected -->
+          {% for i in (1..4) %}
+            <div class="swiper-slide">
+              <div class="product-card border-2 border-black rounded-lg overflow-hidden bg-white">
+                <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                  <span class="text-gray-400">Product {{ i }}</span>
+                </div>
+                <div class="p-4">
+                  <h3 class="font-['Poppins'] font-bold text-base text-gray-400 mb-2">Sample Product</h3>
+                  <span class="font-['Poppins'] font-bold text-lg text-gray-400"> $0.00 </span>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div
+        class="swiper-button-next btn-cartoon bg-[#f2bb06] border-2 border-black rounded-full !w-12 !h-12 after:!text-xl after:!font-bold"
+      ></div>
+      <div
+        class="swiper-button-prev btn-cartoon bg-[#f2bb06] border-2 border-black rounded-full !w-12 !h-12 after:!text-xl after:!font-bold"
+      ></div>
+
+      <!-- Pagination -->
+      <div class="swiper-pagination !bottom-0"></div>
     </div>
   </div>
 </div>
@@ -53,6 +155,12 @@
     {% endif %}
     background-size: contain;
     background-position: center;
+    background-repeat: repeat;
+  }
+
+  /* Image card doesn't need pattern background */
+  .card-image {
+    background: white;
   }
 
   /* Desktop override */
@@ -63,7 +171,81 @@
       {% endif %}
     }
   }
+
+  /* Swiper Styles */
+  .product-swiper {
+    padding-bottom: 50px;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #000;
+  }
+
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .swiper-pagination-bullet {
+    background: #000;
+    opacity: 0.3;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: #cd0102;
+    opacity: 1;
+  }
+
+  /* Line clamp for product titles */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 </style>
+
+<!-- Swiper JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.product-swiper', {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 20,
+        },
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 20,
+        },
+      },
+      loop: false,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+    });
+  });
+</script>
 
 {% schema %}
 {
@@ -88,6 +270,23 @@
       "type": "image_picker",
       "id": "card_image",
       "label": "Image for the third card"
+    },
+    {
+      "type": "text",
+      "id": "card_image_alt",
+      "label": "Third card image alt text",
+      "default": "Featured product"
+    },
+    {
+      "type": "text",
+      "id": "swiper_title",
+      "label": "Products Section Title",
+      "default": "New Arrivals"
+    },
+    {
+      "type": "collection",
+      "id": "product_collection",
+      "label": "Product Collection"
     }
   ],
   "presets": [
