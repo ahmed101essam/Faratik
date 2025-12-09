@@ -1,169 +1,212 @@
 <div class="mt-24">
   <div class="max-w-6xl mx-auto mt-30 px-6 md:px-0">
-    {% form 'product', product %}
-      <div class="flex flex-col md:flex-row gap-8">
-        <!-- Image Slider Section -->
-        <div class="image-slider w-full md:w-1/2 h-96 md:h-[500px]">
-          <div class="border-black border-2 shadow-2xl h-full btn-cartoon bg-white p-3 flex flex-col">
-            <div class="h-4/5 mb-3" data-main-image-container>
-              <img
-                src="{{ product.featured_image | img_url: 'large' }}"
-                alt="{{ product.title }}"
-                height=""
-                width=""
-                class="block w-full h-full object-contain"
-                data-main-image
-              >
-            </div>
-            <div class="relative h-1/5">
-              <!-- Thumbnail Navigation -->
-              <div class="flex gap-2 overflow-x-auto pb-2" data-thumbnails>
-                {% for image in product.images %}
-                  <button
-                    type="button"
-                    class="flex-shrink-0 w-16 h-16 border-2 border-black btn-cartoon bg-white cursor-pointer hover:border-[#ff7e06] transition-colors {% if forloop.first %}border-[#ff7e06]{% endif %}"
-                    data-thumbnail
-                    data-image-url="{{ image | img_url: 'large' }}"
-                  >
-                    <img
-                      src="{{ image | img_url: 'small' }}"
-                      alt="{{ product.title }}"
-                      class="w-full h-full object-cover"
-                    >
-                  </button>
-                {% endfor %}
-              </div>
-              <!-- Arrow Navigation -->
-              <div class="w-full flex justify-between items-center absolute bottom-0 left-0 px-2">
+    <div class="flex flex-col md:flex-row gap-8">
+      <!-- Image Slider Section -->
+      <div class="image-slider w-full md:w-1/2 h-96 md:h-[500px]">
+        <div class="border-black border-2 shadow-2xl h-full btn-cartoon bg-white p-3 flex flex-col">
+          <div class="h-4/5 mb-3" data-main-image-container>
+            <img
+              src="{{ product.featured_image | img_url: 'large' }}"
+              alt="{{ product.title }}"
+              height=""
+              width=""
+              class="block w-full h-full object-contain"
+              data-main-image
+            >
+          </div>
+          <div class="relative h-1/5">
+            <!-- Thumbnail Navigation -->
+            <div class="flex gap-2 overflow-x-auto pb-2" data-thumbnails>
+              {% for image in product.images %}
                 <button
                   type="button"
-                  class="cursor-pointer bg-white btn-cartoon w-10 h-10 flex items-center justify-center hover:bg-[#ff7e06] hover:text-white transition-colors"
-                  data-prev-btn
+                  class="flex-shrink-0 w-16 h-16 border-2 border-black btn-cartoon bg-white cursor-pointer hover:border-[#ff7e06] transition-colors {% if forloop.first %}border-[#ff7e06]{% endif %}"
+                  data-thumbnail
+                  data-image-url="{{ image | img_url: 'large' }}"
                 >
-                  <i class="fa-solid fa-angle-left text-2xl"></i>
-                </button>
-                <button
-                  type="button"
-                  class="cursor-pointer bg-white btn-cartoon w-10 h-10 flex items-center justify-center hover:bg-[#ff7e06] hover:text-white transition-colors"
-                  data-next-btn
-                >
-                  <i class="fa-solid fa-angle-right text-2xl"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Product Info Section -->
-        <div class="info w-full md:w-1/2 flex flex-col gap-4">
-          <!-- Title and Price -->
-          <div>
-            <p class="font-[poppins] font-bold text-3xl md:text-4xl mb-2 outlined-text-sm">{{ product.title }}</p>
-            <p class="font-[bangers] font-black text-4xl md:text-5xl outlined-text text-[#ff7e06]">
-              {{ product.price | money }}
-            </p>
-            {% if product.compare_at_price > product.price %}
-              <p class="font-[poppins] text-3xl line-through text-[#cd0102]">
-                {{ product.compare_at_price | money }}
-              </p>
-            {% endif %}
-          </div>
-
-          <!-- Description -->
-          <div class="border-2 border-black btn-cartoon bg-[#ff7e06] p-4">
-            <h3 class="font-[bangers] text-2xl outlined-text mb-2">Description</h3>
-            <div class="font-[poppins] text-base leading-relaxed">
-              {{ product.description }}
-            </div>
-          </div>
-
-          <!-- Variants -->
-          {% if product.variants.size > 1 %}
-            <div class="border-2 border-black btn-cartoon bg-[#f2bb06] p-4">
-              <label class="font-[bangers] text-2xl outlined-text mb-2 block">Select Option</label>
-              <select
-                name="id"
-                class="w-full p-3 border-2 border-black btn-cartoon font-[poppins] text-lg cursor-pointer bg-[#fde9d0] focus:outline-none focus:border-[#ff7e06]"
-              >
-                {% for variant in product.variants %}
-                  <option
-                    value="{{ variant.id }}"
-                    {% if variant.available == false %}
-                      disabled
-                    {% endif %}
+                  <img
+                    src="{{ image | img_url: 'small' }}"
+                    alt="{{ product.title }}"
+                    class="w-full h-full object-cover"
                   >
-                    {{ variant.title }} - {{ variant.price | money }}
-                    {% if variant.available == false %} (Sold Out){% endif %}
-                  </option>
-                {% endfor %}
-              </select>
+                </button>
+              {% endfor %}
             </div>
-          {% else %}
-            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-          {% endif %}
-
-          <!-- Quantity -->
-          <div class="border-2 border-black btn-cartoon bg-white p-4">
-            <label class="font-[bangers] text-2xl outlined-text mb-2 block">Quantity</label>
-            <div class="flex items-center gap-3">
+            <!-- Arrow Navigation -->
+            <div class="w-full flex justify-between items-center absolute bottom-0 left-0 px-2">
               <button
                 type="button"
-                class="w-12 h-12 bg-[#fde9d0] btn-cartoon border-2 border-black font-[bangers] text-2xl hover:bg-[#ff7e06] hover:text-white transition-colors"
-                data-quantity-decrease
+                class="cursor-pointer bg-white btn-cartoon w-10 h-10 flex items-center justify-center hover:bg-[#ff7e06] hover:text-white transition-colors"
+                data-prev-btn
               >
-                -
+                <i class="fa-solid fa-angle-left text-2xl"></i>
               </button>
-              <input
-                type="number"
-                name="quantity"
-                value="1"
-                min="1"
-                class="w-20 h-12 text-center border-2 border-black btn-cartoon font-[poppins] text-xl bg-white focus:outline-none focus:border-[#ff7e06]"
-                data-quantity-input
-              >
               <button
                 type="button"
-                class="w-12 h-12 bg-[#fde9d0] btn-cartoon border-2 border-black font-[bangers] text-2xl hover:bg-[#ff7e06] hover:text-white transition-colors"
-                data-quantity-increase
+                class="cursor-pointer bg-white btn-cartoon w-10 h-10 flex items-center justify-center hover:bg-[#ff7e06] hover:text-white transition-colors"
+                data-next-btn
               >
-                +
+                <i class="fa-solid fa-angle-right text-2xl"></i>
               </button>
-            </div>
-          </div>
-
-          <!-- Add to Cart Button -->
-          <button
-            type="submit"
-            class="w-full py-4 bg-[#cd0102] btn-cartoon border-2 border-black text-white font-[bangers] text-3xl outlined-text hover:bg-[#ff7e06] transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
-            {% if product.available == false %}
-              disabled
-            {% endif %}
-          >
-            {% if product.available %}
-              Add to Cart <i class="fa-solid fa-cart-plus"></i>
-            {% else %}
-              Sold Out
-            {% endif %}
-          </button>
-
-          <!-- Additional Info -->
-          <div class="flex gap-3 flex-wrap">
-            <div class="flex-1 min-w-[150px] border-2 border-black btn-cartoon bg-[#f2bb06] p-3 text-center">
-              <i class="fa-solid fa-truck text-2xl outlined-text"></i>
-              <p class="font-[bangers] text-lg outlined-text mt-1">Free Shipping</p>
-            </div>
-            <div class="flex-1 min-w-[150px] border-2 border-black btn-cartoon bg-[#400afe] p-3 text-center">
-              <i class="fa-solid fa-shield-halved text-2xl outlined-text text-white"></i>
-              <p class="font-[bangers] text-lg outlined-text text-white mt-1">Secure Payment</p>
-            </div>
-            <div class="flex-1 min-w-[150px] border-2 border-black btn-cartoon bg-[#ff7e06] p-3 text-center">
-              <i class="fa-solid fa-rotate-left text-2xl outlined-text text-white"></i>
-              <p class="font-[bangers] text-lg outlined-text text-white mt-1">Easy Returns</p>
             </div>
           </div>
         </div>
       </div>
-    {% endform %}
+
+      <!-- Product Info Section -->
+      <div class="info w-full md:w-1/2 flex flex-col gap-4">
+        <!-- Title and Price -->
+        <div>
+          <p class="font-[poppins] font-bold text-3xl md:text-4xl mb-2 outlined-text-sm">{{ product.title }}</p>
+          <p class="font-[bangers] font-black text-4xl md:text-5xl outlined-text text-[#ff7e06]">
+            {{ product.price | money }}
+          </p>
+          {% if product.compare_at_price > product.price %}
+            <p class="font-[poppins] text-3xl line-through text-[#cd0102]">
+              {{ product.compare_at_price | money }}
+            </p>
+          {% endif %}
+        </div>
+
+        <!-- Description -->
+        <div class="border-2 border-black btn-cartoon bg-[#ff7e06] p-4">
+          <h3 class="font-[bangers] text-2xl outlined-text mb-2">Description</h3>
+          <div class="font-[poppins] text-base leading-relaxed">
+            {{ product.description }}
+          </div>
+        </div>
+
+        <!-- Variants -->
+        {% if product.variants.size > 1 %}
+          <div class="border-2 border-black btn-cartoon bg-[#f2bb06] p-4">
+            <label class="font-[bangers] text-2xl outlined-text mb-2 block">Select Option</label>
+            <select
+              id="variant-selector"
+              class="w-full p-3 border-2 border-black btn-cartoon font-[poppins] text-lg cursor-pointer bg-[#fde9d0] focus:outline-none focus:border-[#ff7e06]"
+            >
+              {% for variant in product.variants %}
+                <option
+                  value="{{ variant.id }}"
+                  {% if variant.available == false %}
+                    disabled
+                  {% endif %}
+                >
+                  {{ variant.title }} - {{ variant.price | money }}
+                  {% if variant.available == false %} (Sold Out){% endif %}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+        {% else %}
+          <input type="hidden" id="variant-selector" value="{{ product.variants.first.id }}">
+        {% endif %}
+
+        <!-- Quantity -->
+        <div class="border-2 border-black btn-cartoon bg-white p-4">
+          <label class="font-[bangers] text-2xl outlined-text mb-2 block">Quantity</label>
+          <div class="flex items-center gap-3">
+            <button
+              type="button"
+              class="w-12 h-12 bg-[#fde9d0] btn-cartoon border-2 border-black font-[bangers] text-2xl hover:bg-[#ff7e06] hover:text-white transition-colors"
+              data-quantity-decrease
+            >
+              -
+            </button>
+            <input
+              type="number"
+              id="quantity"
+              value="1"
+              min="1"
+              class="w-20 h-12 text-center border-2 border-black btn-cartoon font-[poppins] text-xl bg-white focus:outline-none focus:border-[#ff7e06]"
+              data-quantity-input
+            >
+            <button
+              type="button"
+              class="w-12 h-12 bg-[#fde9d0] btn-cartoon border-2 border-black font-[bangers] text-2xl hover:bg-[#ff7e06] hover:text-white transition-colors"
+              data-quantity-increase
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        <!-- Add to Cart Button -->
+        <button
+          type="button"
+          id="add-to-cart-btn"
+          class="w-full py-4 bg-[#cd0102] btn-cartoon border-2 border-black text-white font-[bangers] text-3xl outlined-text hover:bg-[#ff7e06] transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+          {% if product.available == false %}
+            disabled
+          {% endif %}
+        >
+          {% if product.available %}
+            Add to Cart <i class="fa-solid fa-cart-plus"></i>
+          {% else %}
+            Sold Out
+          {% endif %}
+        </button>
+
+        <!-- Additional Info -->
+        <div class="flex gap-3 flex-wrap">
+          <div class="flex-1 min-w-[150px] border-2 border-black btn-cartoon bg-[#f2bb06] p-3 text-center">
+            <i class="fa-solid fa-truck text-2xl outlined-text"></i>
+            <p class="font-[bangers] text-lg outlined-text mt-1">Free Shipping</p>
+          </div>
+          <div class="flex-1 min-w-[150px] border-2 border-black btn-cartoon bg-[#400afe] p-3 text-center">
+            <i class="fa-solid fa-shield-halved text-2xl outlined-text text-white"></i>
+            <p class="font-[bangers] text-lg outlined-text text-white mt-1">Secure Payment</p>
+          </div>
+          <div class="flex-1 min-w-[150px] border-2 border-black btn-cartoon bg-[#ff7e06] p-3 text-center">
+            <i class="fa-solid fa-rotate-left text-2xl outlined-text text-white"></i>
+            <p class="font-[bangers] text-lg outlined-text text-white mt-1">Easy Returns</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cart Drawer Overlay -->
+<div id="cart-overlay" class="fixed inset-0 bg-black opacity-50 z-40 hidden transition-opacity duration-300"></div>
+
+<!-- Cart Drawer -->
+<div
+  id="cart-drawer"
+  class="fixed top-0 right-0 h-full w-full md:w-[450px] bg-white z-50 transform translate-x-full transition-transform duration-300 shadow-2xl border-l-4 border-black"
+>
+  <div class="flex flex-col h-full">
+    <!-- Cart Header -->
+    <div class="bg-[#cd0102] btn-cartoon border-b-4 border-black p-4 flex justify-between items-center">
+      <h2 class="font-[bangers] text-3xl outlined-text text-white">Your Cart</h2>
+      <button id="close-cart" class="text-white hover:text-[#ff7e06] transition-colors">
+        <i class="fa-solid fa-times text-3xl outlined-text"></i>
+      </button>
+    </div>
+
+    <!-- Cart Items -->
+    <div id="cart-items" class="flex-1 overflow-y-auto p-4">
+      <!-- Cart items will be loaded here -->
+    </div>
+
+    <!-- Cart Footer -->
+    <div class="border-t-4 border-black p-4 bg-[#fde9d0]">
+      <div class="flex justify-between items-center mb-4">
+        <span class="font-[bangers] text-2xl outlined-text-sm">Total:</span>
+        <span id="cart-total" class="font-[bangers] text-3xl text-[#ff7e06] outlined-text">$0.00</span>
+      </div>
+      <a
+        href="{{ routes.cart_url }}"
+        class="block w-full text-center py-3 bg-[#ff7e06] btn-cartoon border-2 border-black text-white font-[bangers] text-2xl outlined-text hover:bg-[#cd0102] transition-colors mb-2"
+      >
+        View Cart
+      </a>
+      <button
+        id="checkout-btn"
+        class="w-full py-3 bg-[#cd0102] btn-cartoon border-2 border-black text-white font-[bangers] text-2xl outlined-text hover:bg-[#400afe] transition-colors"
+      >
+        Checkout <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
   </div>
 </div>
 
@@ -234,6 +277,179 @@
         quantityInput.value = 1;
       }
     });
+
+    // Cart Drawer Functionality
+    const cartDrawer = document.getElementById('cart-drawer');
+    const cartOverlay = document.getElementById('cart-overlay');
+    const closeCartBtn = document.getElementById('close-cart');
+    const addToCartBtn = document.getElementById('add-to-cart-btn');
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+    // Open cart drawer
+    function openCart() {
+      cartDrawer.classList.remove('translate-x-full');
+      cartOverlay.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close cart drawer
+    function closeCart() {
+      cartDrawer.classList.add('translate-x-full');
+      cartOverlay.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    closeCartBtn.addEventListener('click', closeCart);
+    cartOverlay.addEventListener('click', closeCart);
+
+    // Add to Cart
+    addToCartBtn.addEventListener('click', async () => {
+      const variantId = document.getElementById('variant-selector').value;
+      const quantity = parseInt(quantityInput.value);
+
+      try {
+        const response = await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: variantId,
+            quantity: quantity,
+          }),
+        });
+
+        if (response.ok) {
+          await loadCart();
+          openCart();
+        }
+      } catch (error) {
+        console.error('Error adding to cart:', error);
+        alert('Failed to add item to cart');
+      }
+    });
+
+    // Load cart contents
+    async function loadCart() {
+      try {
+        const response = await fetch('/cart.js');
+        const cart = await response.json();
+
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+
+        if (cart.items.length === 0) {
+          cartItemsContainer.innerHTML = `
+            <div class="text-center py-12">
+              <i class="fa-solid fa-cart-shopping text-6xl text-gray-300 mb-4"></i>
+              <p class="font-[bangers] text-2xl text-gray-500">Your cart is empty</p>
+            </div>
+          `;
+          cartTotal.textContent = '$0.00';
+          return;
+        }
+
+        cartItemsContainer.innerHTML = cart.items
+          .map(
+            (item, index) => `
+          <div class="btn-cartoon bg-white p-3 mb-3 flex gap-3">
+            <img src="${item.image}" alt="${item.title}" class="w-20 h-20 object-contain border-2 border-black">
+            <div class="flex-1">
+              <p class="font-[bangers] text-lg">${item.title}</p>
+              <p class="text-[#cd0102] font-[bangers]">${(item.final_price / 100).toFixed(2)} USD</p>
+              <div class="flex items-center gap-2 mt-2">
+                <button class="btn-cartoon w-8 h-8 text-sm quantity-decrease" data-line="${index + 1}">
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+                <span class="font-bold text-lg w-8 text-center">${item.quantity}</span>
+                <button class="btn-cartoon w-8 h-8 text-sm quantity-increase" data-line="${index + 1}">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+                <button class="ml-auto text-[#cd0102] hover:text-black transition-colors remove-item" data-line="${
+                  index + 1
+                }">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
+            </div>
+            <div class="font-[bangers] text-xl text-[#ff7e06]">
+              ${(item.final_line_price / 100).toFixed(2)} USD
+            </div>
+          </div>
+        `
+          )
+          .join('');
+
+        cartTotal.textContent = `$${(cart.total_price / 100).toFixed(2)}`;
+
+        // Add event listeners for quantity buttons
+        document.querySelectorAll('.quantity-increase').forEach((btn) => {
+          btn.addEventListener('click', () => updateQuantity(btn.dataset.line, 1));
+        });
+
+        document.querySelectorAll('.quantity-decrease').forEach((btn) => {
+          btn.addEventListener('click', () => updateQuantity(btn.dataset.line, -1));
+        });
+
+        document.querySelectorAll('.remove-item').forEach((btn) => {
+          btn.addEventListener('click', () => removeItem(btn.dataset.line));
+        });
+      } catch (error) {
+        console.error('Error loading cart:', error);
+      }
+    }
+
+    // Update quantity
+    async function updateQuantity(line, change) {
+      try {
+        const response = await fetch('/cart/change.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            line: line,
+            quantity: change,
+          }),
+        });
+
+        if (response.ok) {
+          await loadCart();
+        }
+      } catch (error) {
+        console.error('Error updating quantity:', error);
+      }
+    }
+
+    // Remove item
+    async function removeItem(line) {
+      try {
+        const response = await fetch('/cart/change.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            line: line,
+            quantity: 0,
+          }),
+        });
+
+        if (response.ok) {
+          await loadCart();
+        }
+      } catch (error) {
+        console.error('Error removing item:', error);
+      }
+    }
+
+    // Checkout button
+    checkoutBtn.addEventListener('click', () => {
+      window.location.href = '/checkout';
+    });
+
+    // Load cart on page load
+    loadCart();
   });
 </script>
 

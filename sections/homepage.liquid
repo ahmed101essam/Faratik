@@ -59,53 +59,45 @@
 
     <!-- Swiper Container -->
     <div class="swiper product-swiper rounded-lg shadow-lg p-4">
-      <div class="swiper-wrapper">
+      <div class="swiper-wrapper h-80">
         {% if section.settings.product_collection != blank %}
           {% assign collection = collections[section.settings.product_collection] %}
           {% for product in collection.products limit: 12 %}
-            <div class="swiper-slide">
-              <div class="product-card border-2 border-black rounded-lg overflow-hidden bg-white hover:shadow-xl transition-shadow">
+            <div class="swiper-slide h-80">
+              <div class="product-card border-3 border-black transition hover:shadow-2xl">
                 <a href="{{ product.url }}">
-                  {% if product.featured_image %}
-                    <img
-                      src="{{ product.featured_image | image_url: width: 400 }}"
-                      alt="{{ product.featured_image.alt | default: product.title }}"
-                      loading="lazy"
-                      class="w-full h-48 object-cover"
-                    >
-                  {% else %}
-                    <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
-                      <span class="text-gray-400">No image</span>
-                    </div>
-                  {% endif %}
-                </a>
-
-                <div class="p-4">
-                  <a href="{{ product.url }}" class="block">
-                    <h3 class="font-['Poppins'] font-bold text-base md:text-lg text-black mb-2 line-clamp-2 hover:text-[#cd0102] transition-colors">
-                      {{ product.title }}
-                    </h3>
-                  </a>
-
-                  <div class="flex items-center justify-between">
-                    <span class="font-['Poppins'] font-bold text-lg text-[#cd0102]">
-                      {{ product.price | money }}
-                    </span>
-                    {% if product.compare_at_price > product.price %}
-                      <span class="font-['Poppins'] text-sm text-gray-500 line-through">
-                        {{ product.compare_at_price | money }}
-                      </span>
+                  <div class="w-full h-8/12 overflow-hidden">
+                    {% if product.featured_image %}
+                      <img
+                        src="{{ product.featured_image | image_url: width: 400 }}"
+                        alt="{{ product.featured_image.alt | default: product.title }}"
+                        loading="lazy"
+                        width=""
+                        height=""
+                        class="w-full h-full object-cover"
+                      >
+                    {% else %}
+                      <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                        <span class="text-gray-400">No image</span>
+                      </div>
                     {% endif %}
                   </div>
-                </div>
+                  <div class="bg-white py-2 px-3 pb-4 flex flex-col items-center w-full gap-1">
+                    <h2 class="text-xl font-medium font-['Poppins'] text-center">{{ product.title }} -</h2>
+                    <p class="text-center font-bold text-2xl">{{ product.price | money }}</p>
+                    <button class="bg-[#cd0102] bg-no-repeat cursor-pointer bg-cover atc btn-cartoon px-3 py-1 text-center text-white font-['Bangers'] outlined-text">
+                      <div>View Product</div>
+                    </button>
+                  </div>
+                </a>
               </div>
             </div>
           {% endfor %}
 
           <!-- View All Slide -->
-          <div class="swiper-slide">
-            <a href="{{ collection.url }}" class="block h-full">
-              <div class="product-card border-4 border-black rounded-lg bg-[#f2bb06] hover:bg-[#e0ab00] transition-colors h-full flex flex-col items-center justify-center p-8 min-h-[320px]">
+          <div class="swiper-slide h-full min-h-80">
+            <a href="{{ collection.url }}" class="block h-80">
+              <div class="product-card border-4 border-black rounded-lg bg-[#f2bb06] hover:bg-[#e0ab00] transition-colors h-full flex flex-col items-center justify-center p-8 ">
                 <svg class="w-16 h-16 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                 </svg>
@@ -117,7 +109,7 @@
         {% else %}
           <!-- Placeholder slides when no collection selected -->
           {% for i in (1..4) %}
-            <div class="swiper-slide">
+            <div class="swiper-slide ">
               <div class="product-card border-2 border-black rounded-lg overflow-hidden bg-white">
                 <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
                   <span class="text-gray-400">Product {{ i }}</span>
