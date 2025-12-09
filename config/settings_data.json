@@ -18,7 +18,8 @@
         "type": "homepage",
         "settings": {
           "mobile_hero": "shopify://shop_images/cover_image_for_web_mobile_version.webp",
-          "card_pattern": "shopify://shop_images/yellow_pattern.png"
+          "card_pattern": "shopify://shop_images/yellow_pattern.png",
+          "card_image": "shopify://shop_images/Faratik_Story_Panel_8_-_Brand_Finale.webp"
         }
       },
       "footer": {
