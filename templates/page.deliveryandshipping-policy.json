@@ -1,0 +1,8 @@
+{
+    "sections":{
+        "template":{
+            "type":"template-deliveryandshipping-policy"
+        }
+    },
+    "order":["template"]
+}
