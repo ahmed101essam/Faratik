@@ -1,8 +1,24 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-    "sections":{
-        "template":{
-            "type":"template-contact"
-        }
-    },
-    "order":["template"]
+  "sections": {
+    "template": {
+      "type": "template-contact",
+      "settings": {
+        "contact_us_title_image": "shopify://shop_images/Contact_Us.webp",
+        "contact_us_bg_desktop": "shopify://shop_images/Contact_Us_BG.webp",
+        "contact_us_bg_mobile": "shopify://shop_images/Contact_Us_BG_vertical.webp"
+      }
+    }
+  },
+  "order": [
+    "template"
+  ]
 }
