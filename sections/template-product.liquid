@@ -6,7 +6,7 @@
         <div class="border-black border-2 shadow-2xl h-full btn-cartoon bg-white p-3 flex flex-col">
           <div class="h-4/5 mb-3" data-main-image-container>
             <img
-              src="{{ product.featured_image | image_url: 'large' }}"
+              src="{{ product.featured_image | img_url: 'large' }}"
               alt="{{ product.title }}"
               height=""
               width=""
@@ -22,10 +22,10 @@
                   type="button"
                   class="shrink-0 w-16 h-16 border-2 border-black btn-cartoon bg-white cursor-pointer hover:border-[#ff7e06] transition-colors {% if forloop.first %}border-[#ff7e06]{% endif %}"
                   data-thumbnail
-                  data-image-url="{{ image | image_url: 'large' }}"
+                  data-image-url="{{ image | img_url: 'large' }}"
                 >
                   <img
-                    src="{{ image | image_url: 'small' }}"
+                    src="{{ image | img_url: 'small' }}"
                     alt="{{ product.title }}"
                     class="w-full h-full object-cover"
                     width=""
