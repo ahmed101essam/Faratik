@@ -16,15 +16,15 @@
         </li>
       {% endfor %}
       <li class="relative block mr-6 btn-cartoon bg-[#fde9d0] py-1 rounded w-36 border text-center border-black text-white text-xl font-medium">
-        <a
-          href="{{ routes.cart_url }}"
-          class="text-2xl outlined-text font-bold text-white text-center font-[bangers] hover:text-gray-900"
+        <button
+          data-header-cart-button
+          class="text-2xl outlined-text font-bold text-white text-center font-[bangers] hover:text-gray-900 w-full cursor-pointer"
         >
           Cart <i class="fa-solid fa-basket-shopping"></i>
           <span class="bg-[#cd0102] w-8 h-8 absolute -top-3 right-0 rounded-full z-10">
             {{- cart.item_count -}}
           </span>
-        </a>
+        </button>
       </li>
     </ul>
     <div>
@@ -67,9 +67,9 @@
         </li>
       {% endfor %}
       <li class="bg-[#fde9d0] btn-cartoon outlined-text text-2xl py-1 px-4 flex justify-between">
-        <div>
-          <a href="{{ routes.cart_url }}">Cart <i class="fa-solid fa-basket-shopping"></i></a>
-        </div>
+        <button data-mobile-cart-button class="flex-1 text-left cursor-pointer">
+          Cart <i class="fa-solid fa-basket-shopping"></i>
+        </button>
         <span class="bg-[#cd0102] w-8 h-8 rounded-full text-center">
           {{- cart.item_count -}}
         </span>
@@ -83,7 +83,10 @@
     const mobileButton = document.querySelector('[data-mobile-menu-button]');
     const mobileMenu = document.querySelector('[data-mobile-menu]');
     const mobileMenuCloseButton = document.querySelector('[data-mobile-menu-close-button]');
+    const headerCartButton = document.querySelector('[data-header-cart-button]');
+    const mobileCartButton = document.querySelector('[data-mobile-cart-button]');
 
+    // Mobile menu toggle
     mobileButton.addEventListener('click', (e) => {
       e.stopPropagation();
       mobileMenu.style.transform = 'translateX(0)';
@@ -99,5 +102,258 @@
         mobileMenu.style.transform = 'translateX(-105%)';
       }
     });
+
+    // Open cart drawer function
+    function openCartDrawer() {
+      const cartDrawer = document.getElementById('cart-drawer');
+      const cartOverlay = document.getElementById('cart-overlay');
+
+      if (cartDrawer && cartOverlay) {
+        cartDrawer.classList.remove('translate-x-full');
+        cartOverlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+
+        // Close mobile menu if open
+        mobileMenu.style.transform = 'translateX(-105%)';
+
+        // Trigger cart load
+        const event = new CustomEvent('openCartDrawer');
+        window.dispatchEvent(event);
+      }
+    }
+
+    // Desktop cart button
+    if (headerCartButton) {
+      headerCartButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        openCartDrawer();
+      });
+    }
+
+    // Mobile cart button
+    if (mobileCartButton) {
+      mobileCartButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        openCartDrawer();
+      });
+    }
   });
 </script>
+
+<!-- Cart Drawer Overlay -->
+<div id="cart-overlay" class="fixed inset-0 bg-black opacity-50 z-40 hidden transition-opacity duration-300"></div>
+
+<!-- Cart Drawer -->
+<div
+  id="cart-drawer"
+  class="fixed top-0 right-0 h-full w-full md:w-[450px] bg-white z-50 transform translate-x-full transition-transform duration-300 shadow-2xl border-l-4 border-black"
+>
+  <div class="flex flex-col h-full">
+    <!-- Cart Header -->
+    <div class="bg-[#cd0102] btn-cartoon border-b-4 border-black p-4 flex justify-between items-center">
+      <h2 class="font-[bangers] text-3xl outlined-text text-white">Your Cart</h2>
+      <button id="close-cart" class="text-white hover:text-[#ff7e06] transition-colors">
+        <i class="fa-solid fa-times text-3xl outlined-text"></i>
+      </button>
+    </div>
+
+    <!-- Cart Items -->
+    <div id="cart-items" class="flex-1 overflow-y-auto p-4">
+      <!-- Cart items will be loaded here -->
+    </div>
+
+    <!-- Cart Footer -->
+    <div class="border-t-4 border-black p-4 bg-[#fde9d0]">
+      <div class="flex justify-between items-center mb-4">
+        <span class="font-[bangers] text-2xl outlined-text-sm">Total:</span>
+        <span id="cart-total" class="font-[bangers] text-3xl text-[#ff7e06] outlined-text">$0.00</span>
+      </div>
+      <a
+        href="{{ routes.cart_url }}"
+        class="block w-full text-center py-3 bg-[#ff7e06] btn-cartoon border-2 border-black text-white font-[bangers] text-2xl outlined-text hover:bg-[#cd0102] transition-colors mb-2"
+      >
+        View Cart
+      </a>
+      <button
+        id="checkout-btn"
+        class="w-full py-3 bg-[#cd0102] btn-cartoon border-2 border-black text-white font-[bangers] text-2xl outlined-text hover:bg-[#400afe] transition-colors"
+      >
+        Checkout <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Cart Drawer Functionality - Global Script
+  window.addEventListener('DOMContentLoaded', () => {
+    const cartDrawer = document.getElementById('cart-drawer');
+    const cartOverlay = document.getElementById('cart-overlay');
+    const closeCartBtn = document.getElementById('close-cart');
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+    // Close cart drawer
+    function closeCart() {
+      cartDrawer.classList.add('translate-x-full');
+      cartOverlay.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // Open cart drawer (can be called from anywhere)
+    window.openCart = function () {
+      cartDrawer.classList.remove('translate-x-full');
+      cartOverlay.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      loadCart();
+    };
+
+    closeCartBtn.addEventListener('click', closeCart);
+    cartOverlay.addEventListener('click', closeCart);
+
+    // Load cart contents
+    async function loadCart() {
+      try {
+        const response = await fetch('/cart.js');
+        const cart = await response.json();
+
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+
+        if (cart.items.length === 0) {
+          cartItemsContainer.innerHTML = `
+            <div class="text-center py-12">
+              <i class="fa-solid fa-cart-shopping text-6xl text-gray-300 mb-4"></i>
+              <p class="font-[bangers] text-2xl text-gray-500">Your cart is empty</p>
+            </div>
+          `;
+          cartTotal.textContent = '$0.00';
+          return;
+        }
+
+        cartItemsContainer.innerHTML = cart.items
+          .map(
+            (item, index) => `
+          <div class="btn-cartoon bg-white p-3 mb-3 flex gap-3">
+            <img src="${item.image}" alt="${item.title}" class="w-20 h-20 object-contain border-2 border-black">
+            <div class="flex-1">
+              <p class="font-[bangers] text-lg">${item.title}</p>
+              <p class="text-[#cd0102] font-[bangers]">${(item.final_price / 100).toFixed(2)} LE</p>
+              <div class="flex items-center gap-2 mt-2">
+                <button class="btn-cartoon w-8 h-8 text-sm quantity-decrease hover:bg-gray-200 active:scale-90" data-line="${
+                  index + 1
+                }">
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+                <span class="font-bold text-lg w-8 text-center">${item.quantity}</span>
+                <button class="btn-cartoon w-8 h-8 text-sm quantity-increase hover:bg-gray-200 active:scale-90" data-line="${
+                  index + 1
+                }">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+                <button class="ml-auto text-[#cd0102] hover:text-black transition-colors remove-item" data-line="${
+                  index + 1
+                }">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
+            </div>
+            <div class="font-[bangers] text-xl text-[#ff7e06]">
+              ${(item.final_line_price / 100).toFixed(2)} LE
+            </div>
+          </div>
+        `
+          )
+          .join('');
+
+        cartTotal.textContent = `${(cart.total_price / 100).toFixed(2)}`;
+
+        // Add event listeners for quantity buttons
+        document.querySelectorAll('.quantity-increase').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const currentQty = cart.items[btn.dataset.line - 1].quantity;
+            updateQuantity(btn.dataset.line, currentQty + 1);
+          });
+        });
+
+        document.querySelectorAll('.quantity-decrease').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const currentQty = cart.items[btn.dataset.line - 1].quantity;
+            if (currentQty > 1) {
+              updateQuantity(btn.dataset.line, currentQty - 1);
+            }
+          });
+        });
+
+        document.querySelectorAll('.remove-item').forEach((btn) => {
+          btn.addEventListener('click', () => removeItem(btn.dataset.line));
+        });
+      } catch (error) {
+        console.error('Error loading cart:', error);
+      }
+    }
+
+    // Update quantity
+    async function updateQuantity(line, newQuantity) {
+      try {
+        const response = await fetch('/cart/change.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            line: line,
+            quantity: newQuantity,
+          }),
+        });
+
+        if (response.ok) {
+          await loadCart();
+        }
+      } catch (error) {
+        console.error('Error updating quantity:', error);
+      }
+    }
+
+    // Remove item
+    async function removeItem(line) {
+      try {
+        const response = await fetch('/cart/change.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            line: line,
+            quantity: 0,
+          }),
+        });
+
+        if (response.ok) {
+          await loadCart();
+        }
+      } catch (error) {
+        console.error('Error removing item:', error);
+      }
+    }
+
+    // Checkout button
+    checkoutBtn.addEventListener('click', () => {
+      window.location.href = '/checkout';
+    });
+
+    // Listen for custom event from other scripts
+    window.addEventListener('openCartDrawer', () => {
+      loadCart();
+    });
+  });
+</script>
+
+<style>
+  .outlined-text {
+    text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+  }
+
+  .outlined-text-sm {
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  }
+</style>

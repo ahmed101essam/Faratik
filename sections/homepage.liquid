@@ -15,14 +15,14 @@
     </a>
   </div>
 
-  <div class="max-w-6xl mx-auto my-6 px-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+  <div class="max-w-6xl mx-auto my-6 px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
     <!-- Free Shipping Card -->
-    <div class="card px-4 py-6 border-4 border-black rounded-lg shadow-lg text-lg md:text-xl text-black font-bold font-['Poppins'] flex items-center justify-center text-center">
+    <div class="px-4 py-6 btn-cartoon bg-[#ff7e06] font-[bangers] shadow-lg text-xl md:text-3xl outlined-text text-black font-bold flex items-center justify-center text-center">
       Free Shipping for Orders above {{ 30000 | money }}
     </div>
 
     <!-- Contact Card -->
-    <div class="card px-4 py-6 border-4 border-black rounded-lg shadow-lg text-lg md:text-xl text-black font-bold font-['Poppins'] flex flex-col gap-3 justify-center items-center text-center">
+    <div class="px-4 py-6 btn-cartoon bg-[#f2bb06] font-[bangers] shadow-lg text-xl md:text-3xl outlined-text text-black font-bold flex flex-col items-center justify-center text-center">
       <p>Big Deals and Office Celebrations Just Contact Us</p>
       <a
         href="{{ routes.root_url }}pages/contact"
@@ -33,7 +33,7 @@
     </div>
 
     <!-- Image Card -->
-    <div class="card-image border-4 border-black rounded-lg shadow-lg overflow-hidden">
+    <div class="card-image btn-cartoon bg-[#f2bb06] font-[bangers] shadow-lg text-xl md:text-3xl outlined-text text-black font-bold flex flex-col items-center justify-center text-center">
       {% if section.settings.card_image %}
         <img
           src="{{ section.settings.card_image | image_url: width: 600 }}"
