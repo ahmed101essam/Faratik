@@ -1,9 +1,25 @@
-<div class="contact min-h-screen border-b-12 border-white">
-  <div class="w-full max-w-6xl mx-auto pt-24 p-2 flex  flex-col items-center justify-center">
+<div
+  class="bg-center bg-cover bg-no-repeat min-h-screen border-b-12 border-white contact-hero"
+  style="
+    {% if section.settings.contact_us_bg_mobile %}
+      background-image: url('{{ section.settings.contact_us_bg_mobile | image_url: width: 800 }}');
+    {% endif %}
+  "
+>
+  <div class="w-full max-w-6xl mx-auto pt-24 p-2 flex flex-col items-center justify-center">
     {% form 'contact' %}
       <div class="flex flex-col justify-center items-center w-full">
-        <h1 class="font-[bangers] text-6xl text-center my-0 md:my-2 flex items-center justify-center text-center w-56 md:w-80">
-          <img src="{{ "Contact_Us.png" | file_url}}" width="" height="" alt="Contact Us" class="block w-full">
+        <h1 class="font-[bangers] text-6xl my-0 md:my-2 flex items-center justify-center text-center w-56 md:w-80">
+          {% if section.settings.contact_us_title_image %}
+            <img
+              src="{{ section.settings.contact_us_title_image | image_url }}"
+              alt="Contact Us Title"
+              width=""
+              height=""
+              loading="lazy"
+              class="block w-full object-cover"
+            >
+          {% endif %}
         </h1>
 
         <!-- Name -->
@@ -32,6 +48,7 @@
           >
         </div>
 
+        <!-- Phone -->
         <div class="flex flex-col gap-1 md:gap-6 md:flex-row items-start w-full md:items-center font-[poppins] my-1 md:my-4">
           <label for="contact_phone" class="font-medium w-20 text-md md:text-lg text-left md:text-right">Phone</label>
           <input
@@ -62,12 +79,10 @@
           class="bg-[#cd0102] outlined-text text-2xl font-[bangers] px-2 py-1 cursor-pointer my-4 btn-cartoon w-3xs"
         >
 
-        <!-- Success Message -->
         {% if form.posted_successfully? %}
           <p class="text-green-600 font-[poppins] mt-4">Your message has been sent!</p>
         {% endif %}
 
-        <!-- Error Handling -->
         {% if form.errors %}
           <p class="text-red-600 font-[poppins] mt-4">Please fill out all fields correctly.</p>
         {% endif %}
@@ -75,3 +90,42 @@
     {% endform %}
   </div>
 </div>
+
+<style>
+  /* Desktop Background Override */
+  @media (min-width: 768px) {
+    .contact-hero {
+      {% if section.settings.contact_us_bg_desktop %}
+        background-image: url('{{ section.settings.contact_us_bg_desktop | image_url: width: 1920 }}') !important;
+      {% endif %}
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Contact Us Schema",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "contact_us_title_image",
+      "label": "Contact Us Title Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "contact_us_bg_desktop",
+      "label": "Contact Us Background Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "contact_us_bg_mobile",
+      "label": "Contact Us Background Mobile Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Section"
+    }
+  ]
+}
+{% endschema %}

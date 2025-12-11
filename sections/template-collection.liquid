@@ -1,10 +1,10 @@
 <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 px-3 md:px-5 gap-10 mt-26 justify-center items-center justify-items-center">
   {% for product in collection.products %}
-    <div class="border border-black border-3 transition w-10/12 md:w-full hover:scale-105 hover:shadow-2xl">
+    <div class="border-black border-3 transition w-10/12 md:w-full hover:scale-105 hover:shadow-2xl">
       <a href="{{ product.url }}">
         <div class="w-full h-64 overflow-hidden">
           <img
-            src="{{ product.featured_image | img_url: 'large' }}"
+            src="{{ product.featured_image | image_url: 'large' }}"
             alt="{{ product.title }}"
             class="w-full h-full object-cover "
             height=""

@@ -1,6 +1,6 @@
 <div>
   <div
-    class="hero bg-cover bg-center bg-no-repeat min-h-screen border-b-[12px] border-white relative"
+    class="hero bg-cover bg-center bg-no-repeat min-h-screen border-b-12 border-white relative"
     style="
       {% if section.settings.mobile_hero %}
         background-image: url('{{ section.settings.mobile_hero | image_url: width: 800 }}');
@@ -36,6 +36,8 @@
     <div class="card-image btn-cartoon bg-[#f2bb06] font-[bangers] shadow-lg text-xl md:text-3xl outlined-text text-black font-bold flex flex-col items-center justify-center text-center">
       {% if section.settings.card_image %}
         <img
+          width=""
+          height=""
           src="{{ section.settings.card_image | image_url: width: 600 }}"
           alt="{{ section.settings.card_image_alt | default: 'Featured product' }}"
           loading="lazy"
@@ -126,14 +128,14 @@
 
       <!-- Navigation Buttons -->
       <div
-        class="swiper-button-next btn-cartoon bg-[#f2bb06] border-2 border-black rounded-full !w-12 !h-12 after:!text-xl after:!font-bold"
+        class="swiper-button-next btn-cartoon bg-[#f2bb06] border-2 border-black rounded-full w-12! h-12! after:text-xl! after:font-bold!"
       ></div>
       <div
-        class="swiper-button-prev btn-cartoon bg-[#f2bb06] border-2 border-black rounded-full !w-12 !h-12 after:!text-xl after:!font-bold"
+        class="swiper-button-prev btn-cartoon bg-[#f2bb06] border-2 border-black rounded-full w-12! h-12! after:text-xl! after:font-bold!"
       ></div>
 
       <!-- Pagination -->
-      <div class="swiper-pagination !bottom-0"></div>
+      <div class="swiper-pagination bottom-0!"></div>
     </div>
   </div>
 </div>
@@ -142,8 +144,6 @@
   .card {
     {% if section.settings.card_pattern %}
       background-image: url('{{ section.settings.card_pattern | image_url }}');
-    {% else %}
-      background-image: url('{{ "yellow-pattern.png" | asset_url }}');
     {% endif %}
     background-size: contain;
     background-position: center;
@@ -200,8 +200,6 @@
 </style>
 
 <!-- Swiper JS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
