@@ -12,9 +12,9 @@
     "template": {
       "type": "template-contact",
       "settings": {
-        "contact_us_title_image": "shopify://shop_images/Contact_Us.png",
-        "contact_us_bg_desktop": "shopify://shop_images/Contact_Us_BG.png",
-        "contact_us_bg_mobile": "shopify://shop_images/Contact_Us_BG_vertical.png"
+        "contact_us_title_image": "shopify://shop_images/Contact_Us.webp",
+        "contact_us_bg_desktop": "shopify://shop_images/Contact_Us_BG.webp",
+        "contact_us_bg_mobile": "shopify://shop_images/Contact_Us_BG_vertical.webp"
       }
     }
   },

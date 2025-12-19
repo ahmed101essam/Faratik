@@ -17,8 +17,8 @@
       "homepage": {
         "type": "homepage",
         "settings": {
-          "desk_hero": "shopify://shop_images/WhatsApp_Image_2025-11-24_at_4.25.25_PM_2.jpg",
-          "mobile_hero": "shopify://shop_images/cover_image_for_web_mobile_version.webp",
+          "desk_hero": "shopify://shop_images/WhatsApp_Image_2025-11-24_at_4.25.25_PM.webp",
+          "mobile_hero": "shopify://shop_images/Mobile_Website_Banner.webp",
           "card_image": "shopify://shop_images/carousel1_1.3.png",
           "card_image_alt": "Featured product",
           "swiper_title": "New Arrivals",
