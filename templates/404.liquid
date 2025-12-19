@@ -1,2 +1,120 @@
-<h1>{{ 'general.404.title' | t }}</h1>
-<p>{{ 'general.404.subtext_html' | t }}</p>
+<div
+  class="bg-center bg-cover bg-no-repeat mt-24 min-h-screen border-b-12 border-black flex items-center justify-center"
+  style="background-color: #f2bb06;"
+>
+  <div class="w-full max-w-4xl mx-auto p-4 flex flex-col items-center justify-center text-center">
+    
+    <!-- Comic Burst Background -->
+    <div class="relative">
+      <!-- 404 Text -->
+      <div class="relative z-10">
+        <h1 class="font-['Bangers'] text-9xl md:text-[200px] text-[#cd0102] outlined-text-thick mb-4 animate-pulse">
+          404
+        </h1>
+      </div>
+      
+      <!-- Comic Explosion Effect -->
+      <div class="absolute inset-0 flex items-center justify-center z-0">
+        <div class="w-96 h-96 bg-yellow-300 rounded-full opacity-30 animate-ping"></div>
+      </div>
+    </div>
+
+    <!-- Comic Speech Bubble -->
+    <div class="bg-white border-4 border-black rounded-3xl p-6 md:p-8 mb-8 relative max-w-xl btn-cartoon shadow-2xl">
+      <!-- Speech Bubble Tail -->
+      <div class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent border-t-[30px] border-t-white"></div>
+      <div class="absolute -bottom-7 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[24px] border-l-transparent border-r-[24px] border-r-transparent border-t-[34px] border-t-black"></div>
+      
+      <h2 class="font-['Bangers'] text-4xl md:text-5xl text-black mb-4">
+        OOPS! PAGE NOT FOUND!
+      </h2>
+      <p class="font-['Poppins'] text-lg md:text-xl text-gray-700 mb-2">
+        Looks like this page took a wrong turn into the comic void!
+      </p>
+      <p class="font-['Poppins'] text-base md:text-lg text-gray-600">
+        Don't worry, even superheroes get lost sometimes.
+      </p>
+    </div>
+
+    <!-- Comic Action Words -->
+    <div class="flex flex-wrap gap-4 justify-center mb-8">
+      <span class="font-['Bangers'] text-3xl text-[#cd0102] outlined-text transform -rotate-12">POW!</span>
+      <span class="font-['Bangers'] text-3xl text-purple-600 outlined-text transform rotate-12">WHAM!</span>
+      <span class="font-['Bangers'] text-3xl text-blue-600 outlined-text transform -rotate-6">BOOM!</span>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex flex-col md:flex-row gap-4 items-center justify-center">
+      <a
+        href="/"
+        class="bg-[#cd0102] outlined-text text-white text-2xl md:text-3xl font-['Bangers'] px-6 py-3 cursor-pointer btn-cartoon hover:scale-110 transition-transform"
+      >
+        Back to Home
+      </a>
+      
+      <a
+        href="/collections/all"
+        class="bg-[#f2bb06] outlined-text text-black text-2xl md:text-3xl font-['Bangers'] px-6 py-3 cursor-pointer btn-cartoon hover:scale-110 transition-transform border-4 border-black"
+      >
+        Shop Now
+      </a>
+    </div>
+
+    <!-- Comic Character Placeholder (Optional - add an image here) -->
+    <div class="mt-8 opacity-50">
+      <svg class="w-32 h-32 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<style>
+  .outlined-text-thick {
+    text-shadow: 
+      -3px -3px 0 #000,  
+      3px -3px 0 #000,
+      -3px 3px 0 #000,
+      3px 3px 0 #000,
+      -3px 0 0 #000,
+      3px 0 0 #000,
+      0 -3px 0 #000,
+      0 3px 0 #000;
+  }
+
+  .outlined-text {
+    text-shadow: 
+      -2px -2px 0 #000,  
+      2px -2px 0 #000,
+      -2px 2px 0 #000,
+      2px 2px 0 #000;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+
+  .animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes ping {
+    0% {
+      transform: scale(1);
+      opacity: 0.3;
+    }
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  .animate-ping {
+    animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+</style>
