@@ -491,6 +491,9 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   .h-12\! {
     height: calc(var(--spacing) * 12) !important;
   }
+  .h-14 {
+    height: calc(var(--spacing) * 14);
+  }
   .h-16 {
     height: calc(var(--spacing) * 16);
   }
@@ -514,6 +517,9 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   }
   .h-96 {
     height: calc(var(--spacing) * 96);
+  }
+  .h-\[3\.5rem\] {
+    height: 3.5rem;
   }
   .h-\[400px\] {
     height: 400px;

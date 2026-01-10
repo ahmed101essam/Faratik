@@ -1,6 +1,6 @@
 <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 px-3 md:px-5 gap-10 mt-26 justify-center items-center justify-items-center">
   {% for product in collection.products %}
-    <div class="border-black w-3xs border-3 h-[400px] transition hover:scale-105 hover:shadow-2xl overflow-hidden">
+    <div class="border-black w-3xs border-3 transition hover:scale-105 hover:shadow-2xl overflow-hidden">
       <a href="{{ product.url }}" class=" flex flex-col">
         <div class="w-full h-64 overflow-hidden">
           <img
@@ -12,7 +12,11 @@
           >
         </div>
         <div class="bg-white py-2 px-3 pb-4 flex flex-col flex-1 items-center w-full gap-1">
-          <h2 class="text-xl font-medium font-[poppins] text-center">{{ product.title }}</h2>
+          <div class="flex items-center justify-center h-14 text-center">
+            <h2 class="text-xl font-medium font-[poppins]">
+              {{ product.title }}
+            </h2>
+          </div>
           <p class="text-center font-bold text-2xl">{{ product.price | money }}</p>
           <button class="bg-[#cd0102] bg-no-repeat  cursor-pointer bg-cover atc btn-cartoon px-3 py-1 text-center text-white font-[bangers] outlined-text">
             <div>Add To Cart</div>
