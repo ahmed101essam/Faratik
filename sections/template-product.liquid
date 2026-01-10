@@ -59,7 +59,7 @@
       <div class="info w-full md:w-1/2 flex flex-col gap-4">
         <!-- Title and Price -->
         <div>
-          <p class="font-[poppins] font-bold text-3xl md:text-4xl mb-2 outlined-text-sm">{{ product.title }}</p>
+          <h1 class="font-[poppins] font-bold text-3xl md:text-4xl mb-2 outlined-text-sm">{{ product.title }}</h1>
           <p class="font-[bangers] font-black text-4xl md:text-5xl outlined-text text-[#ff7e06]">
             {{ product.price | money }}
           </p>
@@ -270,7 +270,33 @@
     });
   });
 </script>
-
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Product",
+  "name": "{{ product.title | escape }}",
+  "url": "{{ shop.url }}{{ product.url }}",
+  "image": [
+    {% for image in product.images %}
+      "https:{{ image.src | img_url: 'master' }}"{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
+  "description": "{{ product.description | strip_html | escape }}",
+  "sku": "{{ product.selected_or_first_available_variant.sku }}",
+  "brand": {
+    "@type": "Brand",
+    "name": "Faratik"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ shop.url }}{{ product.url }}",
+    "priceCurrency": "{{ shop.currency }}",
+    "price": "{{ product.price | money_without_currency | remove: ',' }}",
+    "availability": "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+    "itemCondition": "http://schema.org/NewCondition"
+  }
+}
+</script>
 <style>
   .outlined-text {
     text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;

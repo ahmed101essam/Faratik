@@ -1,12 +1,33 @@
-<footer class="h-80 mt-12 text-[#fde9d0]">
+<footer class="min-h-80 mt-12 text-[#fde9d0]">
   <div class="h-1/5 max-w-6xl mx-auto flex flex-row-reverse text-right bg-transparent">
     <div>
-      <img class="w-40" src="{{ shop.brand.logo | img_url:'large'}}" width="" height="" alt="{{ shop.name }}">
+      <img
+        class="w-40"
+        src="{{ shop.brand.logo | img_url:'large'}}"
+        width=""
+        height=""
+        alt="Faratik Egypt - Creative Office Accessories and Toys"
+      >
     </div>
   </div>
+
   <div class="p-6 pt-10 h-4/5 bg-black ">
-    <div class=" max-w-6xl mx-auto flex items-center justify-between">
-      <div class="max-w-6xl mx-auto flex flex-col items-left justify-start gap-3">
+    <div class=" max-w-6xl mx-auto flex-col sm:flex-row gap-4 flex items-start sm:items-center justify-center">
+      <div class="flex flex-col items-start justify-center">
+        <h2 class="font-[bangers] text-3xl tracking-wider text-white">Faratik Egypt</h2>
+        <h4 class="text-lg opacity-80 max-w-xs">
+          The #1 destination for creative office decor and toys in Egypt. Bringing fun to your workspace.
+        </h4>
+        <div class="mt-2 text-sm opacity-90">
+          <p>
+            <a href="mailto:faratikeg@gmail.com" class="hover:underline italic uppercase tracking-widest"
+              ><i class="fa-regular fa-envelope"></i>faratikeg@gmail.com</a
+            >
+          </p>
+          <p><i class="fa-solid fa-location-dot"></i> Based in Giza, Egypt</p>
+        </div>
+      </div>
+      <div class=" flex flex-col items-left justify-start gap-3">
         <div class="flex gap-3">
           <a
             href="https://www.facebook.com/profile.php?id=61584605544892"
@@ -44,9 +65,6 @@
             >Cancellation and Refund Policy</a
           >
         </div>
-      </div>
-      <div class="text-[#fde9d0] text-4xl hidden md:flex font-[bangers] outlined-text">
-        Bringing Fun & Coziness To Every Workspace
       </div>
     </div>
   </div>
